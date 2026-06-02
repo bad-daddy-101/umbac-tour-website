@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>UMBAC Tour | Organization</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Orbitron:wght@700;800&display=swap');
+
+:root{
+  --bg:#050908;
+  --panel:rgba(8,22,16,.82);
+  --green:#28f586;
+  --green-soft:#8dffbd;
+  --gold:#d7b86a;
+  --text:#eefcf3;
+  --muted:#a8b9ae;
+  --line:rgba(84,255,158,.2);
+  --shadow:0 0 38px rgba(40,245,134,.18);
+}
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Rajdhani,sans-serif;
+  color:var(--text);
+
+  background:
+    radial-gradient(circle at 20% 10%, rgba(40,245,134,.18), transparent 28%),
+    radial-gradient(circle at 80% 0%, rgba(215,184,106,.10), transparent 22%),
+    linear-gradient(180deg,#06100c,#030605 55%,#050908);
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+.shell{
+  width:min(1100px, calc(100% - 32px));
+  margin:0 auto;
+}
+
+header{
+  position:sticky;
+  top:0;
+  z-index:10;
+
+  background:rgba(5,9,8,.82);
+  backdrop-filter:blur(16px);
+
+  border-bottom:1px solid var(--line);
+}
+
+.nav{
+  height:72px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.brand{
+  font-family:Orbitron,sans-serif;
+  font-weight:800;
+  letter-spacing:.08em;
+  color:var(--green-soft);
+}
+
+.back{
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  font-size:14px;
+  font-weight:800;
+}
+
+.hero{
+  padding:80px 0 40px;
+  text-align:center;
+}
+
+.eyebrow{
+  color:var(--gold);
+  text-transform:uppercase;
+  letter-spacing:.18em;
+  font-weight:800;
+  margin-bottom:12px;
+}
+
+h1{
+  margin:0;
+  font-family:Orbitron,sans-serif;
+  font-size:clamp(42px,7vw,82px);
+  line-height:.92;
+  text-transform:uppercase;
+  color:var(--green-soft);
+}
+
+.hero p{
+  max-width:780px;
+  margin:24px auto 0;
+  color:var(--muted);
+  font-size:22px;
+  line-height:1.4;
+}
+
+.organization-card{
+  margin:40px 0;
+
+  border:1px solid rgba(40,245,134,.25);
+  background:var(--panel);
+
+  border-radius:30px;
+
+  padding:40px;
+
+  box-shadow:var(--shadow);
+}
+
+.role{
+  margin-bottom:34px;
+}
+
+.role:last-child{
+  margin-bottom:0;
+}
+
+.role-title{
+  color:var(--gold);
+  text-transform:uppercase;
+  letter-spacing:.18em;
+  font-size:13px;
+  font-weight:800;
+}
+
+.role-name{
+  margin-top:8px;
+
+  font-size:34px;
+  font-weight:700;
+  color:var(--green-soft);
+}
+
+.divider{
+  height:1px;
+  background:rgba(255,255,255,.08);
+  margin:24px 0;
+}
+
+.location{
+  text-align:center;
+  margin-top:40px;
+
+  color:var(--muted);
+  font-size:20px;
+}
+
+.location strong{
+  display:block;
+  margin-bottom:8px;
+  color:var(--green);
+  font-family:Orbitron,sans-serif;
+  letter-spacing:.08em;
+}
+
+.timeline{
+  margin-top:50px;
+
+  display:grid;
+  gap:14px;
+}
+
+.timeline-item{
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.04);
+  border-radius:20px;
+  padding:20px;
+}
+
+.timeline-item strong{
+  display:block;
+  color:var(--green-soft);
+  font-size:24px;
+}
+
+.timeline-item span{
+  color:var(--muted);
+  font-size:18px;
+}
+
+footer{
+  padding:40px 0;
+  margin-top:60px;
+
+  border-top:1px solid var(--line);
+
+  color:var(--muted);
+  text-align:center;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  font-size:14px;
+}
+
+@media(max-width:700px){
+
+  .organization-card{
+    padding:24px;
+  }
+
+  .role-name{
+    font-size:28px;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="shell nav">
+    <a class="brand" href="index.html">UMBAC TOUR</a>
+    <a class="back" href="index.html">← Back Home</a>
+  </div>
+</header>
+
+<main class="shell">
+
+  <section class="hero">
+
+    <div class="eyebrow">
+      Community Tournament Organization
+    </div>
+
+    <h1>
+      UMBAC TOUR
+    </h1>
+
+    <p>
+      Built to provide local MLBB players and teams with a bigger stage,
+      broadcast-quality presentation, and a competitive environment where
+      rivalries become part of community history.
+    </p>
+
+  </section>
+
+  <section class="organization-card">
+
+    <div class="role">
+      <div class="role-title">Founder</div>
+      <div class="role-name">Hon. Aljun Andam</div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="role">
+      <div class="role-title">Resident Caster</div>
+      <div class="role-name">Killershin</div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="role">
+      <div class="role-title">Tournament Admin</div>
+      <div class="role-name">Add_noneee</div>
+    </div>
+
+
+    <div class="divider"></div>
+
+    <div class="role">
+      <div class="role-title">Graphics / Social Media</div>
+      <div class="role-name">Wennie</div>
+    </div>
+
+    <div class="divider"></div>
+
+
+    <div class="role">
+      <div class="role-title">Systems and Tools</div>
+      <div class="role-name">Bad Daddy</div>
+    </div>
+
+  </section>
+
+  <div class="location">
+
+    <strong>
+      BACOLOD CHICO · MARAWI CITY
+    </strong>
+
+    Contact us through our official social media pages and communication channels for tournament inquiries, partnerships, sponsorship opportunities, and community concerns.
+
+  </div>
+
+  <section class="timeline">
+
+    <div class="timeline-item">
+      <strong>Season 1 · 2024</strong>
+      <span>
+        Champion: Upheaval Endgame · Runner-Up: Horizone City
+      </span>
+    </div>
+
+    <div class="timeline-item">
+      <strong>Season 2 · 2026</strong>
+      <span>
+        Champion: Level Up · Runner-Up: Raging Moon
+      </span>
+    </div>
+
+    <div class="timeline-item">
+      <strong>Current Status</strong>
+      <span>
+        Preserving tournament history, match archives, team records, and preparing for future UMBAC Tour seasons.
+      </span>
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  UMBAC Tour · Community Competition Archive
+</footer>
+
+</body>
+</html>

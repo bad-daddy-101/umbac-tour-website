@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UMBAC Tour | Season 2 Leaderboards</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Orbitron:wght@700;800&display=swap');
+
+    :root {
+      --bg: #050908;
+      --panel: rgba(8, 22, 16, 0.82);
+      --green: #28f586;
+      --green-soft: #8dffbd;
+      --gold: #d7b86a;
+      --text: #eefcf3;
+      --muted: #a8b9ae;
+      --line: rgba(84,255,158,.2);
+      --shadow: 0 0 38px rgba(40,245,134,.18);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Rajdhani, system-ui, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 20% 10%, rgba(40,245,134,.18), transparent 28%),
+        linear-gradient(180deg, #06100c, #030605 55%, #050908);
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .shell {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(5,9,8,.82);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      font-family: Orbitron, sans-serif;
+      font-weight: 800;
+      letter-spacing: .08em;
+      color: var(--green-soft);
+    }
+
+    .back {
+      color: var(--muted);
+      text-transform: uppercase;
+      font-weight: 800;
+      letter-spacing: .12em;
+      font-size: 14px;
+    }
+
+    .hero {
+      padding: 70px 0 36px;
+    }
+
+    .eyebrow {
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: Orbitron, sans-serif;
+      font-size: clamp(44px, 7vw, 82px);
+      line-height: .92;
+      text-transform: uppercase;
+      color: var(--green-soft);
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 22px;
+      max-width: 780px;
+      line-height: 1.4;
+    }
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 28px 0 24px;
+    }
+
+    .tab {
+      border: 1px solid rgba(40,245,134,.28);
+      background: rgba(255,255,255,.045);
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 10px 16px;
+      font-family: Rajdhani, sans-serif;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      cursor: pointer;
+    }
+
+    .tab.active {
+      color: #03160c;
+      background: var(--green);
+    }
+
+    .board {
+      border: 1px solid rgba(255,255,255,.1);
+      background: var(--panel);
+      border-radius: 26px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      margin-bottom: 60px;
+    }
+
+    .board-head,
+    .row {
+      display: grid;
+      grid-template-columns: 70px 1.6fr 1fr repeat(6, .65fr);
+      gap: 12px;
+      align-items: center;
+      padding: 14px 18px;
+    }
+
+    .board-head {
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      font-size: 12px;
+      font-weight: 800;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+      background: rgba(0,0,0,.22);
+    }
+
+    .row {
+      border-bottom: 1px solid rgba(255,255,255,.075);
+    }
+
+    .row:last-child { border-bottom: 0; }
+
+    .rank {
+      font-family: Orbitron, sans-serif;
+      color: var(--green);
+      font-size: 18px;
+    }
+
+    .player strong {
+      display: block;
+      color: var(--green-soft);
+      font-size: 21px;
+    }
+
+    .player span,
+    .team {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .value {
+      font-weight: 800;
+      font-size: 18px;
+    }
+
+    .highlight {
+      color: var(--green);
+      font-family: Orbitron, sans-serif;
+    }
+
+    .loading,
+    .error {
+      padding: 22px;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    footer {
+      padding: 34px 0;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      font-size: 14px;
+    }
+
+    @media (max-width: 980px) {
+      .board {
+        overflow-x: auto;
+      }
+
+      .board-head,
+      .row {
+        min-width: 980px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="shell nav">
+      <a class="brand" href="index.html">UMBAC TOUR</a>
+      <a class="back" href="index.html">← Back Home</a>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <div class="eyebrow">Season 2 Archive</div>
+      <h1>Leaderboards</h1>
+      <p>
+        Complete player rankings generated from the official Season 2 match JSON archive.
+      </p>
+
+      <div class="tabs">
+        <button class="tab active" data-board="kda">KDA</button>
+        <button class="tab" data-board="kills">Kills</button>
+        <button class="tab" data-board="assists">Assists</button>
+        <button class="tab" data-board="mvp">MVPs</button>
+        <button class="tab" data-board="avgKills">Avg Kills</button>
+        <button class="tab" data-board="avgAssists">Avg Assists</button>
+      </div>
+    </section>
+
+    <section class="board" id="board">
+      <div class="loading">Loading leaderboards...</div>
+    </section>
+  </main>
+
+  <footer>
+    UMBAC Tour · Season 2 Complete Leaderboards
+  </footer>
+
+  <script>
+    const BOARDS = {
+      kda: {
+        title: 'KDA',
+        key: 'kda',
+        sort: player => [-player.kda, -player.matchesPlayed, -player.kills]
+      },
+      kills: {
+        title: 'Kills',
+        key: 'kills',
+        sort: player => [-player.kills, -player.avgKills]
+      },
+      assists: {
+        title: 'Assists',
+        key: 'assists',
+        sort: player => [-player.assists, -player.avgAssists]
+      },
+      mvp: {
+        title: 'MVPs',
+        key: 'mvpCount',
+        sort: player => [-player.mvpCount, -player.kda, -player.kills]
+      },
+      avgKills: {
+        title: 'Avg Kills',
+        key: 'avgKills',
+        sort: player => [-player.avgKills, -player.kills]
+      },
+      avgAssists: {
+        title: 'Avg Assists',
+        key: 'avgAssists',
+        sort: player => [-player.avgAssists, -player.assists]
+      }
+    };
+
+    let players = [];
+
+    function escapeHtml(value) {
+      return String(value ?? '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+    }
+
+    function compareByArray(sorter) {
+      return (a, b) => {
+        const av = sorter(a);
+        const bv = sorter(b);
+
+        for (let i = 0; i < av.length; i++) {
+          if (av[i] !== bv[i]) return av[i] - bv[i];
+        }
+
+        return a.name.localeCompare(b.name);
+      };
+    }
+
+    async function loadPlayers() {
+      const res = await fetch('data/players.json');
+      if (!res.ok) throw new Error('Could not load data/players.json');
+      return res.json();
+    }
+
+    function renderBoard(type) {
+      const config = BOARDS[type] || BOARDS.kda;
+      const sorted = [...players].sort(compareByArray(config.sort));
+
+      const rows = sorted.map((player, index) => `
+        <div class="row">
+          <div class="rank">#${index + 1}</div>
+
+          <div class="player">
+            <strong>${escapeHtml(player.name)}</strong>
+            <span>${escapeHtml(player.matchesPlayed)} matches · ${escapeHtml(player.mvpCount)} MVPs</span>
+          </div>
+
+          <div class="team">${escapeHtml(player.team)}</div>
+
+          <div class="value highlight">${escapeHtml(player[config.key])}</div>
+          <div class="value">${escapeHtml(player.kills)}</div>
+          <div class="value">${escapeHtml(player.deaths)}</div>
+          <div class="value">${escapeHtml(player.assists)}</div>
+          <div class="value">${escapeHtml(player.avgKills)}</div>
+          <div class="value">${escapeHtml(player.avgAssists)}</div>
+        </div>
+      `).join('');
+
+      document.getElementById('board').innerHTML = `
+        <div class="board-head">
+          <div>Rank</div>
+          <div>Player</div>
+          <div>Team</div>
+          <div>${escapeHtml(config.title)}</div>
+          <div>Kills</div>
+          <div>Deaths</div>
+          <div>Assists</div>
+          <div>Avg K</div>
+          <div>Avg A</div>
+        </div>
+        ${rows}
+      `;
+    }
+
+    function setupTabs() {
+      document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          renderBoard(tab.dataset.board);
+        });
+      });
+    }
+
+    async function init() {
+      try {
+        players = await loadPlayers();
+        setupTabs();
+        renderBoard('kda');
+      } catch (error) {
+        console.error(error);
+        document.getElementById('board').innerHTML = `
+          <div class="error">
+            Could not load leaderboards. Run the site using:
+            <br><br>
+            <code>cd "D:\\UMBAC Tour Website"</code><br>
+            <code>python -m http.server 8080</code>
+          </div>
+        `;
+      }
+    }
+
+    init();
+  </script>
+</body>
+</html>

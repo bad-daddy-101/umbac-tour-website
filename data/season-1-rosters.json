@@ -1,0 +1,352 @@
+{
+  "season": 1,
+  "year": 2024,
+  "teams": [
+    {
+      "name": "1Trick Esports",
+      "slug": "1trick-esports",
+      "logo": "logo.png",
+      "playerCount": 5,
+      "players": [
+        {
+          "name": "Moamar",
+          "file": "Moamar.png"
+        },
+        {
+          "name": "Muhammad",
+          "file": "Muhammad.png"
+        },
+        {
+          "name": "Norhasim",
+          "file": "Norhasim.png"
+        },
+        {
+          "name": "Rheneh",
+          "file": "Rheneh.png"
+        },
+        {
+          "name": "Saipoding",
+          "file": "Saipoding.png"
+        }
+      ]
+    },
+    {
+      "name": "Arsenic Esports",
+      "slug": "arsenic-esports",
+      "logo": "logo.png",
+      "playerCount": 0,
+      "players": []
+    },
+    {
+      "name": "Astigee",
+      "slug": "astigee",
+      "logo": "logo.png",
+      "playerCount": 7,
+      "players": [
+        {
+          "name": "Amsskad",
+          "file": "Amsskad.png"
+        },
+        {
+          "name": "FujiBoyy",
+          "file": "FujiBoyy.png"
+        },
+        {
+          "name": "Haiji",
+          "file": "Haiji.png"
+        },
+        {
+          "name": "K3n",
+          "file": "K3n.png"
+        },
+        {
+          "name": "Puso",
+          "file": "Puso.png"
+        },
+        {
+          "name": "Rush Potato",
+          "file": "Rush Potato.png"
+        },
+        {
+          "name": "Yuji Itadori",
+          "file": "Yuji Itadori.png"
+        }
+      ]
+    },
+    {
+      "name": "Bigots",
+      "slug": "bigots",
+      "logo": "logo.png",
+      "playerCount": 0,
+      "players": []
+    },
+    {
+      "name": "Black Bulls",
+      "slug": "black-bulls",
+      "logo": "logo.png",
+      "playerCount": 6,
+      "players": [
+        {
+          "name": "Adnan",
+          "file": "Adnan.png"
+        },
+        {
+          "name": "Aiman",
+          "file": "Aiman.png"
+        },
+        {
+          "name": "Alnor",
+          "file": "Alnor.png"
+        },
+        {
+          "name": "Faisal",
+          "file": "Faisal.png"
+        },
+        {
+          "name": "Khamzat",
+          "file": "Khamzat.png"
+        },
+        {
+          "name": "Yahya",
+          "file": "Yahya.png"
+        }
+      ]
+    },
+    {
+      "name": "Dark Blitz",
+      "slug": "dark-blitz",
+      "logo": "logo.png",
+      "playerCount": 5,
+      "players": [
+        {
+          "name": "1",
+          "file": "1.png"
+        },
+        {
+          "name": "2",
+          "file": "2.png"
+        },
+        {
+          "name": "3",
+          "file": "3.png"
+        },
+        {
+          "name": "4",
+          "file": "4.png"
+        },
+        {
+          "name": "5",
+          "file": "5.png"
+        }
+      ]
+    },
+    {
+      "name": "Dark Kings",
+      "slug": "dark-kings",
+      "logo": "logo.png",
+      "playerCount": 0,
+      "players": []
+    },
+    {
+      "name": "Dark Reunion",
+      "slug": "dark-reunion",
+      "logo": "logo.png",
+      "playerCount": 5,
+      "players": [
+        {
+          "name": "Akihitou",
+          "file": "Akihitou.png"
+        },
+        {
+          "name": "Alicia",
+          "file": "Alicia.png"
+        },
+        {
+          "name": "Ayanokoji",
+          "file": "Ayanokoji.png"
+        },
+        {
+          "name": "Ch1tanda",
+          "file": "Ch1tanda.png"
+        },
+        {
+          "name": "Desu",
+          "file": "Desu.png"
+        }
+      ]
+    },
+    {
+      "name": "Hatezone Apollo",
+      "slug": "hatezone-apollo",
+      "logo": "logo.png",
+      "playerCount": 0,
+      "players": []
+    },
+    {
+      "name": "Head Honchos",
+      "slug": "head-honchos",
+      "logo": "logo.png",
+      "playerCount": 0,
+      "players": []
+    },
+    {
+      "name": "Hoodlums",
+      "slug": "hoodlums",
+      "logo": "logo.png",
+      "playerCount": 6,
+      "players": [
+        {
+          "name": "Asnawi",
+          "file": "Asnawi.png"
+        },
+        {
+          "name": "Farsi",
+          "file": "Farsi.png"
+        },
+        {
+          "name": "Kokey",
+          "file": "Kokey.png"
+        },
+        {
+          "name": "Raafi",
+          "file": "Raafi.png"
+        },
+        {
+          "name": "Tam",
+          "file": "Tam.png"
+        },
+        {
+          "name": "Waid",
+          "file": "Waid.png"
+        }
+      ]
+    },
+    {
+      "name": "Horizone City",
+      "slug": "horizone-city",
+      "logo": "logo.png",
+      "playerCount": 5,
+      "players": [
+        {
+          "name": "Aoshi",
+          "file": "Aoshi.png"
+        },
+        {
+          "name": "Everzade",
+          "file": "Everzade.png"
+        },
+        {
+          "name": "Icy",
+          "file": "Icy.png"
+        },
+        {
+          "name": "Khairy",
+          "file": "Khairy.png"
+        },
+        {
+          "name": "Maadz",
+          "file": "Maadz.png"
+        }
+      ]
+    },
+    {
+      "name": "Riverside Pro Max",
+      "slug": "riverside-pro-max",
+      "logo": "logo.png",
+      "playerCount": 6,
+      "players": [
+        {
+          "name": "Arafat",
+          "file": "Arafat.png"
+        },
+        {
+          "name": "Ayman",
+          "file": "Ayman.png"
+        },
+        {
+          "name": "Farhan",
+          "file": "Farhan.png"
+        },
+        {
+          "name": "Hakim",
+          "file": "Hakim.png"
+        },
+        {
+          "name": "Sohail",
+          "file": "Sohail.png"
+        },
+        {
+          "name": "Talal",
+          "file": "Talal.png"
+        }
+      ]
+    },
+    {
+      "name": "Sacred Esports",
+      "slug": "sacred-esports",
+      "logo": "logo.png",
+      "playerCount": 5,
+      "players": [
+        {
+          "name": "Amudy",
+          "file": "Amudy.png"
+        },
+        {
+          "name": "Hazrat",
+          "file": "Hazrat.png"
+        },
+        {
+          "name": "Marjan",
+          "file": "Marjan.png"
+        },
+        {
+          "name": "Rayan",
+          "file": "Rayan.png"
+        },
+        {
+          "name": "Sohailie",
+          "file": "Sohailie.png"
+        }
+      ]
+    },
+    {
+      "name": "Senju",
+      "slug": "senju",
+      "logo": "logo.png",
+      "playerCount": 6,
+      "players": [
+        {
+          "name": "Alnor",
+          "file": "Alnor.png"
+        },
+        {
+          "name": "Amino",
+          "file": "Amino.png"
+        },
+        {
+          "name": "Daffy",
+          "file": "Daffy.png"
+        },
+        {
+          "name": "Jimboy",
+          "file": "Jimboy.png"
+        },
+        {
+          "name": "Junaid",
+          "file": "Junaid.png"
+        },
+        {
+          "name": "Raffi",
+          "file": "Raffi.png"
+        }
+      ]
+    },
+    {
+      "name": "Upheaval Endgame",
+      "slug": "upheaval-endgame",
+      "logo": "logo.png",
+      "playerCount": 0,
+      "players": []
+    }
+  ]
+}

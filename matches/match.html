@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>UMBAC Tour | Match Archive</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Orbitron:wght@700;800&display=swap');
+
+:root{
+  --bg:#050908;
+  --panel:rgba(8,22,16,.82);
+  --green:#28f586;
+  --green-soft:#8dffbd;
+  --gold:#d7b86a;
+  --text:#eefcf3;
+  --muted:#a8b9ae;
+  --line:rgba(84,255,158,.2);
+  --shadow:0 0 38px rgba(40,245,134,.18);
+}
+
+*{box-sizing:border-box;}
+
+body{
+  margin:0;
+  font-family:Rajdhani,sans-serif;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(40,245,134,.18), transparent 28%),
+    linear-gradient(180deg,#06100c,#030605 55%,#050908);
+  color:var(--text);
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+.shell{
+  width:min(1200px, calc(100% - 32px));
+  margin:0 auto;
+}
+
+header{
+  position:sticky;
+  top:0;
+  z-index:10;
+  background:rgba(5,9,8,.82);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--line);
+}
+
+.nav{
+  height:72px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.brand{
+  font-family:Orbitron,sans-serif;
+  font-weight:800;
+  color:var(--green-soft);
+}
+
+.back{
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  font-weight:800;
+}
+
+.hero{
+  padding:60px 0 30px;
+}
+
+.eyebrow{
+  color:var(--gold);
+  text-transform:uppercase;
+  letter-spacing:.18em;
+  font-weight:800;
+  margin-bottom:12px;
+}
+
+h1{
+  margin:0;
+  font-family:Orbitron,sans-serif;
+  font-size:clamp(38px,6vw,72px);
+  color:var(--green-soft);
+  text-transform:uppercase;
+}
+
+.meta{
+  margin-top:20px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
+
+.meta-card{
+  background:var(--panel);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:18px;
+  padding:14px;
+}
+
+.meta-card strong{
+  display:block;
+  color:var(--green);
+  font-family:Orbitron,sans-serif;
+  font-size:24px;
+}
+
+.meta-card span{
+  color:var(--muted);
+  text-transform:uppercase;
+  font-size:12px;
+  letter-spacing:.1em;
+}
+
+section{
+  padding:24px 0;
+}
+
+.team-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:12px;
+}
+
+.team-header h2{
+  margin:0;
+  font-family:Orbitron,sans-serif;
+  text-transform:uppercase;
+}
+
+.team-winner{
+  color:var(--green);
+}
+
+.table-wrap{
+  overflow-x:auto;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  background:var(--panel);
+  border-radius:18px;
+  overflow:hidden;
+}
+
+th{
+  text-align:left;
+  padding:14px;
+  color:var(--gold);
+  background:rgba(0,0,0,.25);
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+
+td{
+  padding:14px;
+  border-top:1px solid rgba(255,255,255,.06);
+}
+
+.mvp-row{
+  background:rgba(40,245,134,.08);
+}
+
+.total-row{
+  background:rgba(255,255,255,.04);
+  font-weight:700;
+}
+
+.loading{
+  color:var(--muted);
+  font-size:20px;
+  padding:40px;
+}
+
+.error{
+  color:#ffb8c5;
+  padding:40px;
+}
+
+@media(max-width:900px){
+  .meta{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="shell nav">
+    <a class="brand" href="../index.html">UMBAC TOUR</a>
+    <a class="back" href="../index.html">← Back Home</a>
+  </div>
+</header>
+
+<main class="shell">
+
+  <div id="content" class="loading">
+    Loading match archive...
+  </div>
+
+</main>
+
+<script>
+
+function qs(name){
+  return new URLSearchParams(window.location.search).get(name);
+}
+
+function escapeHtml(value){
+  return String(value ?? '')
+    .replaceAll('&','&amp;')
+    .replaceAll('<','&lt;')
+    .replaceAll('>','&gt;')
+    .replaceAll('"','&quot;')
+    .replaceAll("'","&#039;");
+}
+
+async function loadJson(path){
+  const res = await fetch(path);
+
+  if(!res.ok){
+    throw new Error(path);
+  }
+
+  return res.json();
+}
+
+function calculateTotals(players){
+  return players.reduce((acc,p)=>{
+    acc.kills += p.kills || 0;
+    acc.deaths += p.deaths || 0;
+    acc.assists += p.assists || 0;
+    return acc;
+  },{
+    kills:0,
+    deaths:0,
+    assists:0
+  });
+}
+
+function renderTeam(teamName, winner, players){
+
+  const totals = calculateTotals(players);
+
+  return `
+  <section>
+
+    <div class="team-header">
+      <h2>${escapeHtml(teamName)}</h2>
+      ${
+        winner === teamName
+          ? '<div class="team-winner">WINNER</div>'
+          : ''
+      }
+    </div>
+
+    <div class="table-wrap">
+      <table>
+
+        <thead>
+          <tr>
+            <th>Player</th>
+            <th>Kills</th>
+            <th>Deaths</th>
+            <th>Assists</th>
+            <th>KDA</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          ${players.map(player=>{
+
+            const kda =
+              player.deaths > 0
+                ? ((player.kills + player.assists) / player.deaths).toFixed(2)
+                : (player.kills + player.assists).toFixed(2);
+
+            return `
+            <tr class="${player.isMvp ? 'mvp-row' : ''}">
+              <td>
+                ${escapeHtml(player.playerName)}
+                ${player.isMvp ? ' ⭐ MVP' : ''}
+              </td>
+              <td>${player.kills}</td>
+              <td>${player.deaths}</td>
+              <td>${player.assists}</td>
+              <td>${kda}</td>
+            </tr>
+            `;
+          }).join('')}
+
+          <tr class="total-row">
+            <td>TOTAL</td>
+            <td>${totals.kills}</td>
+            <td>${totals.deaths}</td>
+            <td>${totals.assists}</td>
+            <td>-</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+    </div>
+
+  </section>
+  `;
+}
+
+async function init(){
+
+  try{
+
+    const matchId = qs('id');
+
+    const [matches, stats, vods] = await Promise.all([
+      loadJson('../data/season-2-matches.json'),
+      loadJson('../data/season-2-player-match-stats.json'),
+      loadJson('../data/season-2-vods.json')
+    ]);
+
+    const match =
+      matches.find(m => String(m.id) === String(matchId));
+      const vod = vods[String(match.id)];
+
+    if(!match){
+      document.getElementById('content').innerHTML =
+        '<div class="error">Match not found.</div>';
+      return;
+    }
+
+    const matchStats =
+      stats.filter(s => String(s.matchId) === String(match.id));
+
+    const teamAPlayers =
+      matchStats.filter(p => p.team === match.teamA);
+
+    const teamBPlayers =
+      matchStats.filter(p => p.team === match.teamB);
+
+    document.title =
+      `${match.teamA} vs ${match.teamB} | UMBAC Tour`;
+
+    document.getElementById('content').innerHTML = `
+
+      <div class="hero">
+
+        <div class="eyebrow">
+          Match Archive
+        </div>
+
+        <h1>
+          ${escapeHtml(match.teamA)}
+          vs
+          ${escapeHtml(match.teamB)}
+        </h1>
+
+        <div class="meta">
+
+          <div class="meta-card">
+            <strong>${escapeHtml(match.winner)}</strong>
+            <span>Winner</span>
+          </div>
+
+          <div class="meta-card">
+            <strong>${escapeHtml(match.mvp?.player || '-')}</strong>
+            <span>MVP</span>
+          </div>
+
+          <div class="meta-card">
+            <strong>${escapeHtml(match.matchNumber ?? '-')}</strong>
+            <span>Match #</span>
+          </div>
+
+          <div class="meta-card">
+            <strong>${escapeHtml(match.seriesName || '-')}</strong>
+            <span>Series</span>
+          </div>
+
+        </div>
+
+      </div>
+
+      ${renderVod(vod)}
+
+      ${renderTeam(
+        match.teamA,
+        match.winner,
+        teamAPlayers
+      )}
+
+      ${renderTeam(
+        match.teamB,
+        match.winner,
+        teamBPlayers
+      )}
+
+    `;
+
+  }
+  catch(error){
+
+    console.error(error);
+
+    document.getElementById('content').innerHTML = `
+      <div class="error">
+        Failed to load match archive.
+      </div>
+    `;
+  }
+}
+
+function renderVod(vod) {
+
+  if (!vod) {
+    return `
+      <section>
+        <div class="meta-card">
+          <strong>No VOD Available</strong>
+          <span>This match has not been archived yet.</span>
+        </div>
+      </section>
+    `;
+  }
+
+  return `
+    <section>
+
+      <div class="team-header">
+        <h2>Match VOD</h2>
+      </div>
+
+      <div class="table-wrap">
+
+        <iframe
+          width="100%"
+          height="650"
+          src="${vod.embedUrl}"
+          title="${vod.title}"
+          frameborder="0"
+          allowfullscreen>
+        </iframe>
+
+      </div>
+
+      <div style="margin-top:15px;">
+
+        <strong>${vod.title}</strong><br>
+
+        <span style="color:var(--muted);">
+          ${vod.date}
+          ·
+          Casted by ${vod.casters.join(', ')}
+        </span>
+
+        <br><br>
+
+        <a
+          href="${vod.url}"
+          target="_blank"
+          class="back">
+          Watch on YouTube
+        </a>
+
+      </div>
+
+    </section>
+  `;
+}
+init();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+[
+  {
+    "name": "AIA",
+    "logo": "Aia.png",
+    "type": "Sponsor"
+  },
+  {
+    "name": "Al-Jadeed Bakeshop",
+    "logo": "Al-Jadeed.png",
+    "type": "Sponsor"
+  },
+  {
+    "name": "Boriongan Radio Forum 154.040 MHz",
+    "logo": "Boriongan_landscape.png",
+    "type": "Sponsor"
+  },
+  {
+    "name": "Hon. Monaim Baguinda x MNM Garage",
+    "logo": "Monaim.png",
+    "type": "Supporter"
+  },
+  {
+    "name": "Hon. Adliya Salem x Troopa",
+    "logo": "Troopa.png",
+    "type": "Supporter"
+  },
+  {
+    "name": "Anjell feat. Junaid",
+    "logo": "Anjell.png",
+    "type": "Supporter"
+  },
+  {
+    "name": "Hideout Gaming",
+    "logo": "Hideout.png",
+    "type": "Supporter"
+  }
+]

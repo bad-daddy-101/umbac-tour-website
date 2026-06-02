@@ -1,0 +1,63 @@
+{
+  "season": 2,
+  "champion": "Level Up",
+  "runnerUp": "Raging Moon",
+  "thirdPlace": "REBO x Endgame",
+  "fourthPlace": "Project Obsidian",
+  "topKda": {
+    "name": "DUKETZYY",
+    "team": "Level Up",
+    "playerFilename": "DUKETZYY.png",
+    "mvpCount": 0,
+    "kills": 33,
+    "deaths": 10,
+    "assists": 61,
+    "matchesPlayed": 11,
+    "kda": 9.4,
+    "avgKills": 3.0,
+    "avgDeaths": 0.91,
+    "avgAssists": 5.55
+  },
+  "topKills": {
+    "name": "K1NG",
+    "team": "Level Up",
+    "playerFilename": "K1NG.png",
+    "mvpCount": 3,
+    "kills": 119,
+    "deaths": 39,
+    "assists": 108,
+    "matchesPlayed": 19,
+    "kda": 5.82,
+    "avgKills": 6.26,
+    "avgDeaths": 2.05,
+    "avgAssists": 5.68
+  },
+  "topAssists": {
+    "name": "RYU.",
+    "team": "Level Up",
+    "playerFilename": "RYU..png",
+    "mvpCount": 6,
+    "kills": 57,
+    "deaths": 30,
+    "assists": 218,
+    "matchesPlayed": 20,
+    "kda": 9.17,
+    "avgKills": 2.85,
+    "avgDeaths": 1.5,
+    "avgAssists": 10.9
+  },
+  "mvpLeader": {
+    "name": "RYU.",
+    "team": "Level Up",
+    "playerFilename": "RYU..png",
+    "mvpCount": 6,
+    "kills": 57,
+    "deaths": 30,
+    "assists": 218,
+    "matchesPlayed": 20,
+    "kda": 9.17,
+    "avgKills": 2.85,
+    "avgDeaths": 1.5,
+    "avgAssists": 10.9
+  }
+}
