@@ -39,7 +39,7 @@
     },
     {
       "name": "Astigee",
-      "slug": "astigee",
+      "slug": "Astigee",
       "logo": "logo.png",
       "playerCount": 7,
       "players": [
@@ -75,14 +75,14 @@
     },
     {
       "name": "Bigots",
-      "slug": "bigots",
+      "slug": "Bigots",
       "logo": "logo.png",
       "playerCount": 0,
       "players": []
     },
     {
       "name": "Black Bulls",
-      "slug": "black-bulls",
+      "slug": "Black-Bulls",
       "logo": "logo.png",
       "playerCount": 6,
       "players": [
@@ -114,7 +114,7 @@
     },
     {
       "name": "Dark Blitz",
-      "slug": "dark-blitz",
+      "slug": "Dark-Blitz",
       "logo": "logo.png",
       "playerCount": 5,
       "players": [
@@ -142,14 +142,14 @@
     },
     {
       "name": "Dark Kings",
-      "slug": "dark-kings",
+      "slug": "Dark-Kings",
       "logo": "logo.png",
       "playerCount": 0,
       "players": []
     },
     {
       "name": "Dark Reunion",
-      "slug": "dark-reunion",
+      "slug": "Dark-Reunion",
       "logo": "logo.png",
       "playerCount": 5,
       "players": [
@@ -177,7 +177,7 @@
     },
     {
       "name": "Hatezone Apollo",
-      "slug": "hatezone-apollo",
+      "slug": "Hatezone-Apollo",
       "logo": "logo.png",
       "playerCount": 0,
       "players": []
@@ -191,7 +191,7 @@
     },
     {
       "name": "Hoodlums",
-      "slug": "hoodlums",
+      "slug": "Hoodlums",
       "logo": "logo.png",
       "playerCount": 6,
       "players": [
@@ -223,7 +223,7 @@
     },
     {
       "name": "Horizone City",
-      "slug": "horizone-city",
+      "slug": "Horizone-City",
       "logo": "logo.png",
       "playerCount": 5,
       "players": [
@@ -251,7 +251,7 @@
     },
     {
       "name": "Riverside Pro Max",
-      "slug": "riverside-pro-max",
+      "slug": "Riverside-Pro-Max",
       "logo": "logo.png",
       "playerCount": 6,
       "players": [
@@ -283,7 +283,7 @@
     },
     {
       "name": "Sacred Esports",
-      "slug": "sacred-esports",
+      "slug": "Sacred-Esports",
       "logo": "logo.png",
       "playerCount": 5,
       "players": [
@@ -311,7 +311,7 @@
     },
     {
       "name": "Senju",
-      "slug": "senju",
+      "slug": "Senju",
       "logo": "logo.png",
       "playerCount": 6,
       "players": [
@@ -343,7 +343,7 @@
     },
     {
       "name": "Upheaval Endgame",
-      "slug": "upheaval-endgame",
+      "slug": "Upheaval-Endgame",
       "logo": "logo.png",
       "playerCount": 0,
       "players": []
