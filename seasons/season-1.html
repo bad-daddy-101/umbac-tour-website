@@ -273,6 +273,8 @@
     const ROSTERS_PATH = '../data/season-1-rosters.json';
     const ASSET_BASE = '../assets/season-1';
 
+    let rostersGlobal = null;
+
     function slugify(value) {
       return String(value || '')
         .toLowerCase()
@@ -307,7 +309,9 @@
     }
 
     function logoPath(team) {
-      return `${ASSET_BASE}/${slugify(team)}/logo.png`;
+      const rosterTeam = rostersGlobal?.teams?.find(t => t.name === team);
+      const folder = rosterTeam?.slug || team;
+      return `${ASSET_BASE}/${folder}/logo.png`;
     }
 
     function playerPath(teamSlug, file) {
@@ -363,6 +367,8 @@
           loadJson(SUMMARY_PATH),
           loadJson(ROSTERS_PATH)
         ]);
+
+        rostersGlobal = rosters;
 
         document.getElementById('seasonNote').textContent =
           summary.note || 'The inaugural UMBAC Tour season archive preserves teams, logos, and available player photos.';
