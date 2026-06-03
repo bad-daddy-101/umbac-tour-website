@@ -34,7 +34,6 @@
         radial-gradient(circle at 80% 0%, rgba(215,184,106,.12), transparent 24%),
         linear-gradient(180deg, #06100c, #030605 55%, #050908);
       line-height: 1.5;
-      font-size: 16px;
     }
 
     a {
@@ -199,7 +198,7 @@
       }
     }
 
-    /* Stats Grid */
+    /* Stats Grid - Improved responsiveness */
     .stats {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -232,7 +231,6 @@
       font-family: 'Orbitron', sans-serif;
       font-size: 22px;
       color: var(--green);
-      line-height: 1.2;
     }
 
     @media (min-width: 768px) {
@@ -265,7 +263,6 @@
       font-family: 'Orbitron', sans-serif;
       font-size: 28px;
       text-transform: uppercase;
-      letter-spacing: 0.02em;
     }
 
     @media (min-width: 768px) {
@@ -288,7 +285,7 @@
       display: block;
     }
 
-    /* Players Grid */
+    /* Players Grid - Better mobile breakpoints */
     .players-grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -335,7 +332,7 @@
       height: 200px;
       background: rgba(255,255,255,.035);
       display: grid;
-      place-items: center;
+      place-items: end center;
       overflow: hidden;
     }
 
@@ -353,21 +350,18 @@
     }
 
     .player-body {
-      padding: 16px;
+      padding: 14px;
     }
 
     .player-body strong {
       display: block;
       font-size: 20px;
       color: var(--green-soft);
-      margin-bottom: 4px;
     }
 
     .player-body span {
       color: var(--muted);
       font-size: 13px;
-      display: block;
-      margin-bottom: 12px;
     }
 
     .mini-stats {
@@ -388,14 +382,13 @@
       display: block;
       color: var(--green);
       font-size: 16px;
-      margin-bottom: 2px;
     }
 
     .mini small {
       color: var(--muted);
       text-transform: uppercase;
       letter-spacing: .08em;
-      font-size: 9px;
+      font-size: 10px;
     }
 
     /* Match History */
@@ -444,7 +437,6 @@
     .badge {
       display: inline-flex;
       justify-content: center;
-      align-items: center;
       border-radius: 999px;
       padding: 6px 12px;
       font-weight: 800;
@@ -457,7 +449,6 @@
     @media (min-width: 560px) {
       .badge {
         justify-self: end;
-        width: auto;
       }
     }
 
@@ -493,13 +484,6 @@
         font-size: 14px;
       }
     }
-
-    /* Loading & Error States */
-    .loading-placeholder {
-      text-align: center;
-      padding: 40px;
-      color: var(--muted);
-    }
   </style>
 </head>
 
@@ -511,7 +495,6 @@
     const TEAM_SLUG = "aquatic-esports";
     // ============================================
 
-    // Team slug mapping (can be shared across pages)
     const teamSlugMap = {
       "Level Up": "level-up",
       "Raging Moon": "raging-moon",
@@ -535,13 +518,12 @@
       Object.entries(teamSlugMap).map(([name, slug]) => [slug, name])
     );
 
-    // Helper functions
     function asset(path) {
       return `../${path}`;
     }
 
     function safeText(value, fallback = "-") {
-      return value === undefined || value === null || value === "" ? fallback : String(value);
+      return value === undefined || value === null || value === "" ? fallback : value;
     }
 
     function setImage(img, src, fallbackText = "") {
@@ -550,10 +532,11 @@
       img.onerror = () => {
         img.style.display = "none";
         if (fallbackText && img.parentElement) {
-          const placeholder = document.createElement('div');
-          placeholder.style.cssText = 'color:var(--muted);padding:30px;text-align:center;';
-          placeholder.textContent = fallbackText;
-          img.parentElement.appendChild(placeholder);
+          const parent = img.parentElement;
+          const fallbackDiv = document.createElement('div');
+          fallbackDiv.style.cssText = "color:var(--muted);padding:30px;text-align:center;";
+          fallbackDiv.textContent = fallbackText;
+          parent.appendChild(fallbackDiv);
         }
       };
     }
@@ -572,7 +555,7 @@
 
     async function loadJson(path) {
       const res = await fetch(asset(path));
-      if (!res.ok) throw new Error(`Failed to load ${path} (HTTP ${res.status})`);
+      if (!res.ok) throw new Error(`Failed to load ${path}`);
       return res.json();
     }
 
@@ -592,7 +575,7 @@
       if (!grid) return;
 
       if (!players || players.length === 0) {
-        grid.innerHTML = '<div class="loading-placeholder">No player data available</div>';
+        grid.innerHTML = '<div style="color:var(--muted);padding:40px;text-align:center;">No player data available</div>';
         return;
       }
 
@@ -604,17 +587,17 @@
         return `
           <article class="player-card">
             <div class="player-img">
-              ${photo ? `<img src="${photo}" alt="${player.name}" loading="lazy" onerror="this.style.display='none'">` : '<div style="color:var(--muted);">No image</div>'}
+              ${photo ? `<img src="${photo}" alt="${player.name}" onerror="this.style.display='none'">` : ""}
             </div>
             <div class="player-body">
-              <strong>${escapeHtml(player.name)}</strong>
-              <span>${player.matchesPlayed || 0} matches · ${player.mvpCount || 0} MVPs</span>
+              <strong>${player.name}</strong>
+              <span>${player.matchesPlayed} matches · ${player.mvpCount} MVPs</span>
 
               <div class="mini-stats">
-                <div class="mini"><b>${safeText(player.kda)}</b><small>KDA</small></div>
-                <div class="mini"><b>${safeText(player.kills)}</b><small>Kills</small></div>
-                <div class="mini"><b>${safeText(player.assists)}</b><small>Assists</small></div>
-                <div class="mini"><b>${safeText(player.deaths)}</b><small>Deaths</small></div>
+                <div class="mini"><b>${player.kda}</b><small>KDA</small></div>
+                <div class="mini"><b>${player.kills}</b><small>Kills</small></div>
+                <div class="mini"><b>${player.assists}</b><small>Assists</small></div>
+                <div class="mini"><b>${player.deaths}</b><small>Deaths</small></div>
               </div>
             </div>
           </article>
@@ -628,10 +611,10 @@
 
       const teamMatches = matches
         .filter(match => match.teamA === teamName || match.teamB === teamName)
-        .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp)); // Most recent first
+        .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
 
       if (teamMatches.length === 0) {
-        list.innerHTML = '<div class="loading-placeholder">No match history available</div>';
+        list.innerHTML = '<div style="color:var(--muted);padding:40px;text-align:center;">No match history available</div>';
         return;
       }
 
@@ -645,8 +628,8 @@
             <div class="match">
               <div class="muted">${formatDate(match.timestamp)}</div>
               <div>
-                <strong>vs ${escapeHtml(opponent)}</strong>
-                <div class="muted" style="font-size: 13px; margin-top: 4px;">MVP: ${escapeHtml(mvpName)}</div>
+                <strong>${teamName} vs ${opponent}</strong>
+                <div class="muted" style="font-size:13px;margin-top:4px;">MVP: ${mvpName}</div>
               </div>
               <div class="badge ${didWin ? "win" : "loss"}">${didWin ? "Win" : "Loss"}</div>
             </div>
@@ -655,21 +638,8 @@
       }).join("");
     }
 
-    function escapeHtml(str) {
-      if (!str) return '';
-      return String(str)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
-    }
-
     async function init() {
       try {
-        // Show loading state
-        document.getElementById("teamName").textContent = "Loading...";
-        
         const [teams, players, matches, standings] = await Promise.all([
           loadJson("data/teams.json"),
           loadJson("data/players.json"),
@@ -678,61 +648,46 @@
         ]);
 
         const teamName = slugToTeamName[TEAM_SLUG];
-        
-        if (!teamName) {
-          throw new Error(`No team found for slug: ${TEAM_SLUG}`);
-        }
-
         const team = teams.find(t => t.name === teamName);
         const standing = standings.find(s => s.team === teamName);
         const teamPlayers = players
           .filter(p => p.team === teamName)
-          .sort((a, b) => (b.matchesPlayed || 0) - (a.matchesPlayed || 0) || (b.kda || 0) - (a.kda || 0));
+          .sort((a, b) => b.matchesPlayed - a.matchesPlayed || b.kda - a.kda);
 
         if (!team) {
           document.getElementById("teamName").textContent = "Team Not Found";
-          document.getElementById("teamSummary").textContent = `No data found for team slug: ${TEAM_SLUG}`;
+          document.getElementById("teamSummary").textContent = "Check TEAM_SLUG or teams.json.";
           return;
         }
 
-        // Update page title and content
         document.title = `UMBAC Tour | ${team.name}`;
         document.getElementById("teamName").textContent = team.name;
         document.getElementById("placement").textContent = standing ? `${standing.placement} · ${standing.label}` : "Season 2 Team";
 
         document.getElementById("teamSummary").textContent =
-          `${team.name} finished UMBAC Tour Season 2 with ${team.wins || 0} wins, ${team.losses || 0} losses, ${team.kills || 0} kills, and ${team.mvpCount || 0} MVP awards.`;
+          `${team.name} finished UMBAC Tour Season 2 with ${team.wins} wins, ${team.losses} losses, ${team.kills} kills, and ${team.mvpCount} MVP awards.`;
 
-        // Update stats
-        document.getElementById("wins").textContent = team.wins || 0;
-        document.getElementById("losses").textContent = team.losses || 0;
-        document.getElementById("matchesPlayed").textContent = team.matchesPlayed || 0;
-        document.getElementById("teamKda").textContent = team.kda || "0.00";
-        document.getElementById("kills").textContent = team.kills || 0;
-        document.getElementById("mvpCount").textContent = team.mvpCount || 0;
+        document.getElementById("wins").textContent = team.wins;
+        document.getElementById("losses").textContent = team.losses;
+        document.getElementById("matchesPlayed").textContent = team.matchesPlayed;
+        document.getElementById("teamKda").textContent = team.kda;
+        document.getElementById("kills").textContent = team.kills;
+        document.getElementById("mvpCount").textContent = team.mvpCount;
 
-        // Set images
-        setImage(document.getElementById("teamLogo"), teamLogoPath(TEAM_SLUG), "Logo not available");
-        setImage(document.getElementById("rosterPhoto"), teamRosterPath(TEAM_SLUG), "Roster photo not available");
+        setImage(document.getElementById("teamLogo"), teamLogoPath(TEAM_SLUG), "Logo missing");
+        setImage(document.getElementById("rosterPhoto"), teamRosterPath(TEAM_SLUG), "Roster photo missing");
 
-        // Render dynamic content
         renderPlayers(teamPlayers, TEAM_SLUG);
         renderMatches(matches, team.name);
         
       } catch (error) {
-        console.error("Initialization error:", error);
+        console.error(error);
         document.getElementById("teamName").textContent = "Archive Load Failed";
         document.getElementById("teamSummary").textContent =
-          "Unable to load team data. Please ensure you're running this through a local server (python -m http.server) and that all data files exist.";
-        
-        // Show error in key sections
-        const errorMessage = `<div class="loading-placeholder">Failed to load data: ${error.message}</div>`;
-        if (document.getElementById("playersGrid")) document.getElementById("playersGrid").innerHTML = errorMessage;
-        if (document.getElementById("matchesList")) document.getElementById("matchesList").innerHTML = errorMessage;
+          "Run this through python -m http.server and check your data paths.";
       }
     }
 
-    // Start the app
     init();
   </script>
 
