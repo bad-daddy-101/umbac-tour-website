@@ -255,6 +255,7 @@
       border-radius: 16px;
       padding: 14px;
     }
+
     .match-link {
       display: block;
       color: inherit;
@@ -330,13 +331,13 @@
 
 <body>
   <script>
-    const TEAM_SLUG = "shadow-reaper";
+    const TEAM_SLUG = "rebo-x-endgame";
   </script>
 
   <header>
     <div class="shell nav">
-      <a class="brand" href="../index.html">UMBAC TOUR</a>
-      <a class="back" href="../index.html">← Back Home</a>
+      <a class="brand" href="../../../index.html">UMBAC TOUR</a>
+      <a class="back" href="../../season-2.html">← Back to Season 2</a>
     </div>
   </header>
 
@@ -409,7 +410,7 @@
     );
 
     function asset(path) {
-      return `../${path}`;
+      return `../../../${path}`;
     }
 
     function safeText(value, fallback = "-") {
@@ -496,18 +497,18 @@
         const opponent = match.teamA === teamName ? match.teamB : match.teamA;
         const didWin = match.winner === teamName;
 
-        return `
-          <a class="match-link" href="../matches/match.html?id=${match.id}">
-            <div class="match">
-              <div class="muted">${formatDate(match.timestamp)}</div>
-              <div>
-                <strong>${teamName} vs ${opponent}</strong>
-                <div class="muted">MVP: ${safeText(match.mvp?.player)}</div>
-              </div>
-              <div class="badge ${didWin ? "win" : "loss"}">${didWin ? "Win" : "Loss"}</div>
+      return `
+        <a class="match-link" href="../../../matches/match.html?id=${match.id}">
+          <div class="match">
+            <div class="muted">${formatDate(match.timestamp)}</div>
+            <div>
+              <strong>${teamName} vs ${opponent}</strong>
+              <div class="muted">MVP: ${safeText(match.mvp?.player)}</div>
             </div>
-          </a>
-        `;
+            <div class="badge ${didWin ? "win" : "loss"}">${didWin ? "Win" : "Loss"}</div>
+          </div>
+        </a>
+      `;
       }).join("");
     }
 

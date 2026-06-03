@@ -255,21 +255,7 @@
       border-radius: 16px;
       padding: 14px;
     }
-    .match-link {
-      display: block;
-      color: inherit;
-      text-decoration: none;
-    }
 
-    .match-link:hover .match {
-      transform: translateY(-2px);
-      border-color: rgba(40,245,134,.35);
-      filter: brightness(1.08);
-    }
-
-    .match {
-      transition: transform .18s ease, border-color .18s ease, filter .18s ease;
-    }
     .badge {
       display: inline-flex;
       justify-content: center;
@@ -304,6 +290,22 @@
       font-size: 14px;
     }
 
+    .match-link {
+      display: block;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .match-link:hover .match {
+      transform: translateY(-2px);
+      border-color: rgba(40,245,134,.35);
+      filter: brightness(1.08);
+    }
+
+    .match {
+      transition: transform .18s ease, border-color .18s ease, filter .18s ease;
+    }
+
     @media (max-width: 980px) {
       .hero {
         grid-template-columns: 1fr;
@@ -330,13 +332,13 @@
 
 <body>
   <script>
-    const TEAM_SLUG = "nexus-academy";
+    const TEAM_SLUG = "level-up";
   </script>
 
   <header>
     <div class="shell nav">
-      <a class="brand" href="../index.html">UMBAC TOUR</a>
-      <a class="back" href="../index.html">← Back Home</a>
+      <a class="brand" href="../../../index.html">UMBAC TOUR</a>
+      <a class="back" href="../../season-2.html">← Back to Season 2</a>
     </div>
   </header>
 
@@ -409,7 +411,7 @@
     );
 
     function asset(path) {
-      return `../${path}`;
+      return `../../../${path}`;
     }
 
     function safeText(value, fallback = "-") {
@@ -496,18 +498,18 @@
         const opponent = match.teamA === teamName ? match.teamB : match.teamA;
         const didWin = match.winner === teamName;
 
-        return `
-          <a class="match-link" href="../matches/match.html?id=${match.id}">
-            <div class="match">
-              <div class="muted">${formatDate(match.timestamp)}</div>
-              <div>
-                <strong>${teamName} vs ${opponent}</strong>
-                <div class="muted">MVP: ${safeText(match.mvp?.player)}</div>
-              </div>
-              <div class="badge ${didWin ? "win" : "loss"}">${didWin ? "Win" : "Loss"}</div>
+      return `
+        <a class="match-link" href="../../../matches/match.html?id=${match.id}">
+          <div class="match">
+            <div class="muted">${formatDate(match.timestamp)}</div>
+            <div>
+              <strong>${teamName} vs ${opponent}</strong>
+              <div class="muted">MVP: ${safeText(match.mvp?.player)}</div>
             </div>
-          </a>
-        `;
+            <div class="badge ${didWin ? "win" : "loss"}">${didWin ? "Win" : "Loss"}</div>
+          </div>
+        </a>
+      `;
       }).join("");
     }
 

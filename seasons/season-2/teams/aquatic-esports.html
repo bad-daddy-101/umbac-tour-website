@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>UMBAC Tour | Team Profile</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Orbitron:wght@700;800&display=swap');
+
+    :root {
+      --bg: #050908;
+      --panel: rgba(8, 22, 16, 0.82);
+      --green: #28f586;
+      --green-soft: #8dffbd;
+      --gold: #d7b86a;
+      --text: #eefcf3;
+      --muted: #a8b9ae;
+      --line: rgba(84, 255, 158, 0.2);
+      --shadow: 0 0 38px rgba(40, 245, 134, 0.18);
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Rajdhani', sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 20% 10%, rgba(40,245,134,.18), transparent 28%),
+        radial-gradient(circle at 80% 0%, rgba(215,184,106,.12), transparent 24%),
+        linear-gradient(180deg, #06100c, #030605 55%, #050908);
+      line-height: 1.5;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Mobile-first shell */
+    .shell {
+      width: 100%;
+      padding-left: 20px;
+      padding-right: 20px;
+      margin: 0 auto;
+    }
+
+    @media (min-width: 768px) {
+      .shell {
+        width: calc(100% - 48px);
+        max-width: 1180px;
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(5,9,8,.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      min-height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 12px 0;
+    }
+
+    .brand {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 800;
+      letter-spacing: .08em;
+      color: var(--green-soft);
+      font-size: 18px;
+    }
+
+    .back {
+      color: var(--muted);
+      text-transform: uppercase;
+      font-weight: 800;
+      letter-spacing: .12em;
+      font-size: 13px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      transition: color 0.2s ease;
+    }
+
+    .back:active {
+      color: var(--green-soft);
+    }
+
+    @media (min-width: 768px) {
+      .back:hover {
+        color: var(--green-soft);
+      }
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 40px 0 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    @media (min-width: 768px) {
+      .hero {
+        padding: 70px 0 44px;
+        display: grid;
+        grid-template-columns: 260px 1fr;
+        gap: 34px;
+        align-items: center;
+      }
+    }
+
+    .logo-card {
+      min-height: 200px;
+      border: 1px solid rgba(40,245,134,.28);
+      border-radius: 28px;
+      background: rgba(255,255,255,.04);
+      display: grid;
+      place-items: center;
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    @media (min-width: 768px) {
+      .logo-card {
+        min-height: 260px;
+      }
+    }
+
+    .logo-card img {
+      max-width: 100%;
+      max-height: 160px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 22px rgba(40,245,134,.25));
+    }
+
+    @media (min-width: 768px) {
+      .logo-card img {
+        max-height: 200px;
+      }
+    }
+
+    .eyebrow {
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      font-weight: 800;
+      margin-bottom: 10px;
+      font-size: 12px;
+    }
+
+    @media (min-width: 768px) {
+      .eyebrow {
+        font-size: 14px;
+      }
+    }
+
+    h1 {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(36px, 8vw, 86px);
+      line-height: 1.1;
+      text-transform: uppercase;
+      color: var(--green-soft);
+    }
+
+    @media (min-width: 768px) {
+      h1 {
+        line-height: 0.92;
+      }
+    }
+
+    .subtitle {
+      margin: 16px 0 0;
+      color: var(--muted);
+      font-size: 18px;
+      max-width: 720px;
+      line-height: 1.5;
+    }
+
+    @media (min-width: 768px) {
+      .subtitle {
+        font-size: 22px;
+      }
+    }
+
+    /* Stats Grid - Improved responsiveness */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin: 20px 0 32px;
+    }
+
+    @media (min-width: 560px) {
+      .stats {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (min-width: 980px) {
+      .stats {
+        grid-template-columns: repeat(6, 1fr);
+      }
+    }
+
+    .stat {
+      border: 1px solid rgba(255,255,255,.1);
+      background: rgba(255,255,255,.045);
+      border-radius: 18px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .stat strong {
+      display: block;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 22px;
+      color: var(--green);
+    }
+
+    @media (min-width: 768px) {
+      .stat strong {
+        font-size: 25px;
+      }
+    }
+
+    .stat span {
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    /* Sections */
+    section {
+      padding: 32px 0;
+    }
+
+    @media (min-width: 768px) {
+      section {
+        padding: 38px 0;
+      }
+    }
+
+    h2 {
+      margin: 0 0 20px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 28px;
+      text-transform: uppercase;
+    }
+
+    @media (min-width: 768px) {
+      h2 {
+        font-size: 34px;
+      }
+    }
+
+    /* Roster Photo */
+    .roster-photo {
+      border: 1px solid rgba(40,245,134,.22);
+      background: rgba(255,255,255,.035);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .roster-photo img {
+      width: 100%;
+      display: block;
+    }
+
+    /* Players Grid - Better mobile breakpoints */
+    .players-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    @media (min-width: 640px) {
+      .players-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 980px) {
+      .players-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (min-width: 1200px) {
+      .players-grid {
+        grid-template-columns: repeat(5, 1fr);
+      }
+    }
+
+    .player-card {
+      border: 1px solid rgba(255,255,255,.11);
+      background: var(--panel);
+      border-radius: 22px;
+      overflow: hidden;
+      transition: transform 0.2s ease;
+    }
+
+    .player-card:active {
+      transform: scale(0.98);
+    }
+
+    @media (min-width: 768px) {
+      .player-card:hover {
+        transform: translateY(-4px);
+      }
+    }
+
+    .player-img {
+      height: 200px;
+      background: rgba(255,255,255,.035);
+      display: grid;
+      place-items: end center;
+      overflow: hidden;
+    }
+
+    @media (min-width: 768px) {
+      .player-img {
+        height: 230px;
+      }
+    }
+
+    .player-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: bottom center;
+    }
+
+    .player-body {
+      padding: 14px;
+    }
+
+    .player-body strong {
+      display: block;
+      font-size: 20px;
+      color: var(--green-soft);
+    }
+
+    .player-body span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .mini-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .mini {
+      background: rgba(255,255,255,.045);
+      border-radius: 12px;
+      padding: 8px;
+      text-align: center;
+    }
+
+    .mini b {
+      display: block;
+      color: var(--green);
+      font-size: 16px;
+    }
+
+    .mini small {
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      font-size: 10px;
+    }
+
+    /* Match History */
+    .matches {
+      display: grid;
+      gap: 12px;
+    }
+
+    .match-link {
+      display: block;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .match-link:active .match {
+      transform: scale(0.98);
+    }
+
+    .match {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      align-items: center;
+      border: 1px solid rgba(255,255,255,.1);
+      background: rgba(255,255,255,.04);
+      border-radius: 16px;
+      padding: 16px;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    @media (min-width: 560px) {
+      .match {
+        grid-template-columns: 100px 1fr 90px;
+        gap: 14px;
+        padding: 14px;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .match-link:hover .match {
+        transform: translateY(-2px);
+        border-color: rgba(40,245,134,.35);
+      }
+    }
+
+    .badge {
+      display: inline-flex;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      font-size: 11px;
+      width: fit-content;
+    }
+
+    @media (min-width: 560px) {
+      .badge {
+        justify-self: end;
+      }
+    }
+
+    .win {
+      color: #03160c;
+      background: var(--green);
+    }
+
+    .loss {
+      color: #fff;
+      background: #b73a52;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 50px;
+      padding: 34px 20px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      font-size: 12px;
+    }
+
+    @media (min-width: 768px) {
+      footer {
+        padding: 34px 0;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <script>
+    // ============================================
+    // UPDATE THIS FOR EACH TEAM PAGE
+    // ============================================
+    const TEAM_SLUG = "aquatic-esports";
+    // ============================================
+
+    const teamSlugMap = {
+      "Level Up": "level-up",
+      "Raging Moon": "raging-moon",
+      "REBO x Endgame": "rebo-x-endgame",
+      "Project Obsidian": "project-obsidian",
+      "HORIZONE CITY": "horizone-city",
+      "Cipher Esports": "cipher-esports",
+      "Golden Dawn": "golden-dawn",
+      "Seiha Era": "seiha-era",
+      "Aquatic Esports": "aquatic-esports",
+      "Dark Divine": "dark-divine",
+      "Dark Reunion": "dark-reunion",
+      "Shadow Reaper": "shadow-reaper",
+      "BIGBANG Esports": "bigbang-esports",
+      "Clutch Kings": "clutch-kings",
+      "Nexus Academy": "nexus-academy",
+      "OSAKA Esports": "osaka-esports"
+    };
+
+    const slugToTeamName = Object.fromEntries(
+      Object.entries(teamSlugMap).map(([name, slug]) => [slug, name])
+    );
+
+    function asset(path) {
+      return `../../../${path}`;
+    }
+
+    function safeText(value, fallback = "-") {
+      return value === undefined || value === null || value === "" ? fallback : value;
+    }
+
+    function setImage(img, src, fallbackText = "") {
+      if (!img) return;
+      img.src = src;
+      img.onerror = () => {
+        img.style.display = "none";
+        if (fallbackText && img.parentElement) {
+          const parent = img.parentElement;
+          const fallbackDiv = document.createElement('div');
+          fallbackDiv.style.cssText = "color:var(--muted);padding:30px;text-align:center;";
+          fallbackDiv.textContent = fallbackText;
+          parent.appendChild(fallbackDiv);
+        }
+      };
+    }
+
+    function teamLogoPath(slug) {
+      return asset(`assets/teams/${slug}/logo.png`);
+    }
+
+    function teamRosterPath(slug) {
+      return asset(`assets/teams/${slug}/roster.png`);
+    }
+
+    function playerPhotoPath(slug, filename) {
+      return asset(`assets/teams/${slug}/players/${filename}`);
+    }
+
+    async function loadJson(path) {
+      const res = await fetch(asset(path));
+      if (!res.ok) throw new Error(`Failed to load ${path}`);
+      return res.json();
+    }
+
+    function formatDate(timestamp) {
+      if (!timestamp) return "Match";
+      const date = new Date(timestamp);
+      if (Number.isNaN(date.getTime())) return "Match";
+      return date.toLocaleDateString("en-PH", {
+        month: "short",
+        day: "numeric",
+        year: "numeric"
+      });
+    }
+
+    function renderPlayers(players, teamSlug) {
+      const grid = document.getElementById("playersGrid");
+      if (!grid) return;
+
+      if (!players || players.length === 0) {
+        grid.innerHTML = '<div style="color:var(--muted);padding:40px;text-align:center;">No player data available</div>';
+        return;
+      }
+
+      grid.innerHTML = players.map(player => {
+        const photo = player.playerFilename
+          ? playerPhotoPath(teamSlug, player.playerFilename)
+          : "";
+
+        return `
+          <article class="player-card">
+            <div class="player-img">
+              ${photo ? `<img src="${photo}" alt="${player.name}" onerror="this.style.display='none'">` : ""}
+            </div>
+            <div class="player-body">
+              <strong>${player.name}</strong>
+              <span>${player.matchesPlayed} matches · ${player.mvpCount} MVPs</span>
+
+              <div class="mini-stats">
+                <div class="mini"><b>${player.kda}</b><small>KDA</small></div>
+                <div class="mini"><b>${player.kills}</b><small>Kills</small></div>
+                <div class="mini"><b>${player.assists}</b><small>Assists</small></div>
+                <div class="mini"><b>${player.deaths}</b><small>Deaths</small></div>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function renderMatches(matches, teamName) {
+      const list = document.getElementById("matchesList");
+      if (!list) return;
+
+      const teamMatches = matches
+        .filter(match => match.teamA === teamName || match.teamB === teamName)
+        .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+      if (teamMatches.length === 0) {
+        list.innerHTML = '<div style="color:var(--muted);padding:40px;text-align:center;">No match history available</div>';
+        return;
+      }
+
+      list.innerHTML = teamMatches.map(match => {
+        const opponent = match.teamA === teamName ? match.teamB : match.teamA;
+        const didWin = match.winner === teamName;
+        const mvpName = match.mvp?.player || "Not recorded";
+
+        return `
+          <a class="match-link" href="../../../matches/match.html?id=${match.id}">
+            <div class="match">
+              <div class="muted">${formatDate(match.timestamp)}</div>
+              <div>
+                <strong>${teamName} vs ${opponent}</strong>
+                <div class="muted" style="font-size:13px;margin-top:4px;">MVP: ${mvpName}</div>
+              </div>
+              <div class="badge ${didWin ? "win" : "loss"}">${didWin ? "Win" : "Loss"}</div>
+            </div>
+          </a>
+        `;
+      }).join("");
+    }
+
+    async function init() {
+      try {
+        const [teams, players, matches, standings] = await Promise.all([
+          loadJson("data/teams.json"),
+          loadJson("data/players.json"),
+          loadJson("data/season-2-matches.json"),
+          loadJson("data/standings-season-2.json")
+        ]);
+
+        const teamName = slugToTeamName[TEAM_SLUG];
+        const team = teams.find(t => t.name === teamName);
+        const standing = standings.find(s => s.team === teamName);
+        const teamPlayers = players
+          .filter(p => p.team === teamName)
+          .sort((a, b) => b.matchesPlayed - a.matchesPlayed || b.kda - a.kda);
+
+        if (!team) {
+          document.getElementById("teamName").textContent = "Team Not Found";
+          document.getElementById("teamSummary").textContent = "Check TEAM_SLUG or teams.json.";
+          return;
+        }
+
+        document.title = `UMBAC Tour | ${team.name}`;
+        document.getElementById("teamName").textContent = team.name;
+        document.getElementById("placement").textContent = standing ? `${standing.placement} · ${standing.label}` : "Season 2 Team";
+
+        document.getElementById("teamSummary").textContent =
+          `${team.name} finished UMBAC Tour Season 2 with ${team.wins} wins, ${team.losses} losses, ${team.kills} kills, and ${team.mvpCount} MVP awards.`;
+
+        document.getElementById("wins").textContent = team.wins;
+        document.getElementById("losses").textContent = team.losses;
+        document.getElementById("matchesPlayed").textContent = team.matchesPlayed;
+        document.getElementById("teamKda").textContent = team.kda;
+        document.getElementById("kills").textContent = team.kills;
+        document.getElementById("mvpCount").textContent = team.mvpCount;
+
+        setImage(document.getElementById("teamLogo"), teamLogoPath(TEAM_SLUG), "Logo missing");
+        setImage(document.getElementById("rosterPhoto"), teamRosterPath(TEAM_SLUG), "Roster photo missing");
+
+        renderPlayers(teamPlayers, TEAM_SLUG);
+        renderMatches(matches, team.name);
+        
+      } catch (error) {
+        console.error(error);
+        document.getElementById("teamName").textContent = "Archive Load Failed";
+        document.getElementById("teamSummary").textContent =
+          "Run this through python -m http.server and check your data paths.";
+      }
+    }
+
+    init();
+  </script>
+
+  <header>
+    <div class="shell nav">
+    <a class="brand" href="../../../index.html">UMBAC TOUR</a>
+    <a class="back" href="../../season-2.html">← Back to Season 2</a>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <div class="logo-card">
+        <img id="teamLogo" alt="Team logo" />
+      </div>
+
+      <div>
+        <div class="eyebrow" id="placement">Season 2 Team</div>
+        <h1 id="teamName">Loading...</h1>
+        <p class="subtitle" id="teamSummary">Loading team archive...</p>
+      </div>
+    </section>
+
+    <div class="stats">
+      <div class="stat"><strong id="wins">-</strong><span>Wins</span></div>
+      <div class="stat"><strong id="losses">-</strong><span>Losses</span></div>
+      <div class="stat"><strong id="matchesPlayed">-</strong><span>Matches</span></div>
+      <div class="stat"><strong id="teamKda">-</strong><span>KDA</span></div>
+      <div class="stat"><strong id="kills">-</strong><span>Kills</span></div>
+      <div class="stat"><strong id="mvpCount">-</strong><span>MVPs</span></div>
+    </div>
+
+    <section>
+      <h2>Roster Photo</h2>
+      <div class="roster-photo">
+        <img id="rosterPhoto" alt="Team roster photo" />
+      </div>
+    </section>
+
+    <section>
+      <h2>Players</h2>
+      <div class="players-grid" id="playersGrid"></div>
+    </section>
+
+    <section>
+      <h2>Match History</h2>
+      <div class="matches" id="matchesList"></div>
+    </section>
+  </main>
+
+  <footer>
+    UMBAC Tour · Season 2 Team Archive
+  </footer>
+</body>
+</html>

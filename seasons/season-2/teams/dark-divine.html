@@ -337,8 +337,8 @@
 
   <header>
     <div class="shell nav">
-      <a class="brand" href="../index.html">UMBAC TOUR</a>
-      <a class="back" href="../index.html">← Back Home</a>
+      <a class="brand" href="../../../index.html">UMBAC TOUR</a>
+      <a class="back" href="../../season-2.html">← Back to Season 2</a>
     </div>
   </header>
 
@@ -411,7 +411,7 @@
     );
 
     function asset(path) {
-      return `../${path}`;
+      return `../../../${path}`;
     }
 
     function safeText(value, fallback = "-") {
@@ -499,7 +499,7 @@
         const didWin = match.winner === teamName;
 
       return `
-        <a class="match-link" href="../matches/match.html?id=${match.id}">
+        <a class="match-link" href="../../../matches/match.html?id=${match.id}">
           <div class="match">
             <div class="muted">${formatDate(match.timestamp)}</div>
             <div>
