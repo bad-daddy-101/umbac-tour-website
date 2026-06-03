@@ -3,943 +3,728 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UMBAC Tour | Community MLBB Tournament</title>
-  <meta name="description" content="UMBAC Tour is a community MLBB tournament series built to give local players an MPL-like competitive experience." />
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Orbitron:wght@700;800&display=swap');
+  <title>UMBAC Tour | Community MLBB Tournament Archive</title>
+  <meta name="description" content="UMBAC Tour is a community MLBB tournament archive built to preserve local teams, match history, champions, records, and broadcast moments." />
 
-:root {
-  --bg: #050908;
-  --panel: rgba(8, 22, 16, 0.78);
-  --panel-strong: rgba(10, 35, 24, 0.92);
-  --green: #28f586;
-  --green-soft: #8dffbd;
-  --gold: #d7b86a;
-  --text: #eefcf3;
-  --muted: #a8b9ae;
-  --danger: #ff4f6d;
-  --line: rgba(84, 255, 158, 0.2);
-  --shadow: 0 0 38px rgba(40, 245, 134, 0.18);
-}
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Orbitron:wght@700;800&display=swap');
 
-* {
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent; /* Removes grey tap flash on mobile */
-}
+    :root {
+      --bg: #050908;
+      --panel: rgba(8, 22, 16, 0.78);
+      --panel-strong: rgba(10, 35, 24, 0.92);
+      --green: #28f586;
+      --green-soft: #8dffbd;
+      --gold: #d7b86a;
+      --yellow: #ffe66d;
+      --text: #eefcf3;
+      --muted: #a8b9ae;
+      --danger: #ff4f6d;
+      --line: rgba(84, 255, 158, 0.2);
+      --shadow: 0 0 38px rgba(40, 245, 134, 0.18);
+      --radius-lg: 30px;
+      --radius-md: 22px;
+    }
 
-html {
-  scroll-behavior: smooth;
-}
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html { scroll-behavior: smooth; }
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  font-family: 'Rajdhani', system-ui, sans-serif;
-  color: var(--text);
-  background: radial-gradient(circle at 20% 15%, rgba(40, 245, 134, 0.18), transparent 28%),
-              radial-gradient(circle at 80% 5%, rgba(215, 184, 106, 0.14), transparent 24%),
-              linear-gradient(180deg, #06100c 0%, #030605 52%, #050908 100%);
-  overflow-x: hidden;
-  font-size: 16px; /* Base font size for better rem scaling */
-  line-height: 1.5;
-}
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Rajdhani', system-ui, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 8%, rgba(40, 245, 134, 0.18), transparent 30%),
+        radial-gradient(circle at 88% 5%, rgba(215, 184, 106, 0.14), transparent 26%),
+        radial-gradient(circle at 70% 62%, rgba(40, 245, 134, 0.08), transparent 28%),
+        linear-gradient(180deg, #06100c 0%, #030605 54%, #050908 100%);
+      overflow-x: hidden;
+      font-size: 16px;
+      line-height: 1.5;
+    }
 
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background-image: linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-  background-size: 42px 42px;
-  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9), rgba(0,0,0,0.2));
-}
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.92), rgba(0,0,0,0.15));
+      z-index: 0;
+    }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(120deg, transparent 0%, rgba(40,245,134,0.035) 48%, transparent 56%),
+        radial-gradient(circle at 50% 0%, rgba(255,230,109,0.045), transparent 36%);
+      mix-blend-mode: screen;
+      z-index: 0;
+    }
 
-/* --- MOBILE-FIRST LAYOUT --- */
-.site-shell {
-  width: 100%;
-  padding-left: 20px;
-  padding-right: 20px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 1;
-}
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
 
-/* Tablet and up */
-@media (min-width: 768px) {
-  .site-shell {
-    width: calc(100% - 48px);
-    max-width: 1180px;
-    padding-left: 0;
-    padding-right: 0;
-  }
-}
+    .site-shell {
+      width: 100%;
+      max-width: 1180px;
+      padding-left: 20px;
+      padding-right: 20px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
 
-/* --- HEADER & NAVIGATION (Improved for touch) --- */
-header {
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  backdrop-filter: blur(16px);
-  background: rgba(5, 9, 8, 0.85);
-  border-bottom: 1px solid var(--line);
-}
+    @media (min-width: 768px) {
+      .site-shell { width: calc(100% - 48px); padding-left: 0; padding-right: 0; }
+    }
 
-.nav {
-  min-height: 70px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 15px;
-  padding-top: 8px;
-  padding-bottom: 8px;
-}
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(16px);
+      background: rgba(5, 9, 8, 0.84);
+      border-bottom: 1px solid var(--line);
+    }
 
-/* Brand / Logo */
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-shrink: 0;
-}
+    .nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding-top: 8px;
+      padding-bottom: 8px;
+      overflow: hidden;
+    }
 
-.brand-mark {
-  width: 44px;
-  height: 44px;
-  display: grid;
-  place-items: center;
-  border: 1px solid rgba(40, 245, 134, 0.55);
-  border-radius: 12px;
-  background: radial-gradient(circle, rgba(40,245,134,0.18), rgba(6,16,12,0.92));
-  box-shadow: var(--shadow);
-  font-family: 'Orbitron', sans-serif;
-  font-weight: 800;
-  color: var(--green);
-}
+    @media (max-width: 640px) {
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
 
-.brand-mark img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  padding: 4px;
-}
+      nav {
+        width: 100%;
+      }
+    }
 
-.brand-title strong {
-  display: block;
-  font-family: 'Orbitron', sans-serif;
-  letter-spacing: 0.08em;
-  font-size: 18px;
-}
+    .brand { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
 
-.brand-title span {
-  color: var(--muted);
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-}
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(40, 245, 134, 0.55);
+      border-radius: 12px;
+      background: radial-gradient(circle, rgba(40,245,134,0.18), rgba(6,16,12,0.92));
+      box-shadow: var(--shadow);
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 800;
+      color: var(--green);
+      overflow: hidden;
+    }
 
-/* Mobile Navigation: Hidden, but we need a menu button */
-/* For now, we keep it hidden. A future improvement would be a hamburger menu. */
-nav {
-  display: none; /* Hidden on mobile */
-}
+    .brand-mark img { width: 100%; height: 100%; object-fit: contain; padding: 4px; }
 
-/* Tablet and up - Show nav */
-@media (min-width: 768px) {
-  nav {
+    .brand-title strong {
+      display: block;
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 0.08em;
+      font-size: 18px;
+      line-height: 1.1;
+    }
+
+    .brand-title span {
+      color: var(--muted);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      overflow-x: auto;
+      white-space: nowrap;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 12px;
+      font-weight: 700;
+      scrollbar-width: none;
+    }
+
+    nav::-webkit-scrollbar {
+      display: none;
+    }
+
+    nav a {
+      padding: 8px 0;
+      transition: color .2s ease;
+      flex: 0 0 auto;
+    }
+
+    nav a:hover {
+      color: var(--green-soft);
+    }
+
+    @media (min-width: 820px) {
+      nav {
+        gap: 24px;
+        font-size: 14px;
+      }
+    }
+
+    .hero {
+      min-height: auto;
+      padding: 48px 0 36px;
+      display: grid;
+      gap: 34px;
+      align-items: center;
+    }
+
+    @media (min-width: 900px) {
+      .hero { grid-template-columns: 1.15fr .85fr; min-height: calc(100vh - 72px); padding: 86px 0 62px; }
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--green-soft);
+      border: 1px solid rgba(40,245,134,0.28);
+      background: rgba(40,245,134,0.07);
+      padding: 8px 16px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 800;
+      font-size: 11px;
+      margin-bottom: 22px;
+    }
+
+    .eyebrow::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 18px var(--green);
+    }
+
+    h1 {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(38px, 8vw, 96px);
+      line-height: .96;
+      letter-spacing: .02em;
+      text-transform: uppercase;
+      text-shadow: 0 0 35px rgba(40,245,134,0.28);
+    }
+
+    h1 span { display: block; color: var(--green); }
+
+    .hero-copy {
+      max-width: 720px;
+      margin: 24px 0 0;
+      color: #cfdfd5;
+      font-size: clamp(18px, 2.4vw, 23px);
+      line-height: 1.5;
+    }
+
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 30px; }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+      padding: 0 28px;
+      border-radius: 14px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.11em;
+      font-size: 14px;
+      border: 1px solid rgba(40,245,134,0.45);
+      background: linear-gradient(135deg, rgba(40,245,134,0.24), rgba(6,20,13,0.88));
+      color: var(--text);
+      box-shadow: var(--shadow);
+      transition: transform .15s ease, background .2s ease, border-color .2s ease;
+      cursor: pointer;
+    }
+
+    .button:hover { background: linear-gradient(135deg, rgba(40,245,134,0.35), rgba(6,20,13,0.95)); transform: translateY(-2px); }
+    .button:active { transform: scale(.97); }
+    .button.secondary { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.14); color: var(--muted); box-shadow: none; }
+
+    .champion-card {
+      border: 1px solid rgba(40,245,134,0.3);
+      background:
+        linear-gradient(180deg, rgba(12, 36, 24, 0.92), rgba(3, 8, 6, 0.92)),
+        radial-gradient(circle at top, rgba(40,245,134,0.2), transparent 52%);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: 0 24px 90px rgba(0,0,0,0.42), var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .champion-card::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      background: linear-gradient(135deg, rgba(255,230,109,.13), transparent 28%, rgba(40,245,134,.09));
+      pointer-events: none;
+    }
+
+    .champion-card > * { position: relative; z-index: 1; }
+
+    .champion-logo {
+      width: 86px;
+      height: 86px;
+      object-fit: contain;
+      float: right;
+      margin: 0 0 16px 18px;
+      filter: drop-shadow(0 0 24px rgba(40,245,134,.35));
+    }
+
+    @media (min-width: 768px) { .champion-card { padding: 30px; } .champion-logo { width: 112px; height: 112px; } }
+
+    .card-kicker {
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .champion-name {
+      margin: 0 0 6px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(30px, 6vw, 58px);
+      text-transform: uppercase;
+      color: var(--green-soft);
+      line-height: 1.08;
+    }
+
+    .champion-sub { color: var(--muted); font-size: 17px; clear: both; }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 24px;
+      clear: both;
+    }
+
+    .stat {
+      border: 1px solid rgba(255,255,255,.1);
+      background: rgba(255,255,255,.045);
+      border-radius: 18px;
+      padding: 14px;
+    }
+
+    .stat strong {
+      display: block;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 24px;
+      color: var(--green);
+      line-height: 1.2;
+    }
+
+    .stat span {
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .logo-marquee {
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      border-block: 1px solid var(--line);
+      background: linear-gradient(90deg, rgba(255,255,255,.025), rgba(40,245,134,.05), rgba(255,255,255,.025));
+      padding: 22px 0;
+    }
+
+    .logo-marquee::before,
+    .logo-marquee::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 110px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .logo-marquee::before { left: 0; background: linear-gradient(90deg, var(--bg), transparent); }
+    .logo-marquee::after { right: 0; background: linear-gradient(270deg, var(--bg), transparent); }
+
+    .logo-track {
+      display: flex;
+      align-items: center;
+      gap: 44px;
+      width: max-content;
+      animation: logoScroll 34s linear infinite;
+    }
+
+    .logo-marquee:hover .logo-track { animation-play-state: paused; }
+
+    .logo-item {
+      width: 94px;
+      height: 94px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(0,0,0,.18);
+      border-radius: 24px;
+      display: grid;
+      place-items: center;
+      padding: 14px;
+      flex: 0 0 auto;
+    }
+
+    .logo-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 0 18px rgba(40,245,134,.28));
+      opacity: .9;
+    }
+
+    .logo-placeholder {
+      font-family: 'Orbitron', sans-serif;
+      color: var(--green);
+      font-weight: 800;
+      font-size: 18px;
+    }
+
+    @keyframes logoScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    @media (prefers-reduced-motion: reduce) { .logo-track { animation: none; } }
+
+    section { padding: 56px 0; position: relative; z-index: 1; }
+    @media (min-width: 768px) { section { padding: 78px 0; } }
+
+    .section-heading {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    @media (min-width: 768px) {
+      .section-heading { flex-direction: row; align-items: flex-end; justify-content: space-between; margin-bottom: 42px; }
+    }
+
+    h2 {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(28px, 5vw, 50px);
+      text-transform: uppercase;
+      letter-spacing: .02em;
+      line-height: 1.12;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.5;
+      margin: 0;
+      max-width: 560px;
+    }
+
+    .season-grid,
+    .teaser-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    @media (min-width: 720px) { .season-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 760px) { .teaser-grid { grid-template-columns: repeat(3, 1fr); } }
+
+    .partners-layout {
+      display: grid;
+      gap: 28px;
+    }
+
+    .partner-group-title {
+      margin: 0 0 16px;
+      color: var(--gold);
+      font-family: 'Orbitron', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-size: 18px;
+    }
+
+    .season-card {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid rgba(40, 245, 134, 0.25);
+    border-radius: 28px;
+    background: linear-gradient(145deg, rgba(10, 30, 20, 0.92), rgba(3, 8, 6, 0.95));
+    padding: 26px;
+    transition: all 0.25s ease;
+    text-decoration: none;
+    color: inherit;
     gap: 24px;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    font-size: 14px;
-    font-weight: 700;
-  }
-  nav a {
-    padding: 8px 0; /* Larger touch target */
-    transition: color 0.2s ease;
-  }
-  nav a:hover { color: var(--green-soft); }
-}
-
-/* --- HERO SECTION (Mobile-First) --- */
-.hero {
-  padding: 40px 0 60px;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-}
-
-@media (min-width: 768px) {
-  .hero {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    min-height: calc(100vh - 76px);
-    padding: 80px 0 70px;
-  }
-  .hero > div:first-child {
-    flex: 1.15;
-  }
-  .hero > aside {
-    flex: 0.85;
-  }
-}
-
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  color: var(--green-soft);
-  border: 1px solid rgba(40,245,134,0.28);
-  background: rgba(40,245,134,0.07);
-  padding: 8px 16px;
-  border-radius: 999px;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-weight: 700;
-  font-size: 11px;
-  margin-bottom: 24px;
-}
-
-@media (min-width: 768px) {
-  .eyebrow {
-    font-size: 13px;
-    padding: 9px 18px;
-  }
-}
-
-.eyebrow::before {
-  content: '';
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--green);
-  box-shadow: 0 0 18px var(--green);
-}
-
-h1 {
-  margin: 0 0 16px 0;
-  font-family: 'Orbitron', sans-serif;
-  font-size: clamp(36px, 8vw, 92px);
-  line-height: 1.1;
-  letter-spacing: -0.01em;
-  text-transform: uppercase;
-  text-shadow: 0 0 35px rgba(40,245,134,0.28);
-}
-
-@media (min-width: 768px) {
-  h1 {
-    line-height: 0.92;
-    letter-spacing: 0.03em;
-    margin-bottom: 0;
-  }
-}
-
-h1 span {
-  display: block;
-  color: var(--green);
-}
-
-.hero-copy {
-  max-width: 680px;
-  margin-top: 16px;
-  color: #cfdfd5;
-  font-size: 18px;
-  line-height: 1.5;
-}
-
-@media (min-width: 768px) {
-  .hero-copy {
-    font-size: 22px;
-    margin-top: 24px;
-  }
-}
-
-.hero-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  margin-top: 28px;
-}
-
-/* --- BUTTONS (Larger touch targets) --- */
-.button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 52px; /* Larger for fingers */
-  padding: 0 28px;
-  border-radius: 14px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.11em;
-  font-size: 14px;
-  border: 1px solid rgba(40,245,134,0.45);
-  background: linear-gradient(135deg, rgba(40,245,134,0.24), rgba(6,20,13,0.88));
-  color: var(--text);
-  box-shadow: var(--shadow);
-  transition: transform 0.15s ease, background 0.2s ease;
-  cursor: pointer;
-}
-
-.button:active {
-  transform: scale(0.97); /* Better feedback than hover on mobile */
-}
-
-@media (min-width: 768px) {
-  .button {
-    min-height: 48px;
-    padding: 0 24px;
-    font-size: 13px;
-  }
-  .button:hover {
-    background: linear-gradient(135deg, rgba(40,245,134,0.35), rgba(6,20,13,0.95));
-    transform: translateY(-2px);
-  }
-}
-
-.button.secondary {
-  background: rgba(255,255,255,0.04);
-  border-color: rgba(255,255,255,0.14);
-  color: var(--muted);
-  box-shadow: none;
-}
-
-/* --- CHAMPION CARD (Mobile adjustments) --- */
-.champion-card {
-  border: 1px solid rgba(40,245,134,0.3);
-  background: linear-gradient(180deg, rgba(12, 36, 24, 0.92), rgba(3, 8, 6, 0.92)),
-              radial-gradient(circle at top, rgba(40,245,134,0.2), transparent 52%);
-  border-radius: 26px;
-  padding: 24px;
-  box-shadow: 0 24px 90px rgba(0,0,0,0.42), var(--shadow);
-  position: relative;
-  overflow: hidden;
-}
-
-@media (min-width: 768px) {
-  .champion-card {
-    padding: 28px;
-  }
-}
-
-.champion-logo {
-  width: 80px;
-  height: 80px;
-  object-fit: contain;
-  float: right;
-  margin: 0 0 16px 20px;
-  filter: drop-shadow(0 0 24px rgba(40,245,134,0.32));
-}
-
-@media (min-width: 768px) {
-  .champion-logo {
-    width: 108px;
-    height: 108px;
-    margin-left: 24px;
-  }
-}
-
-.card-kicker {
-  color: var(--gold);
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  font-size: 12px;
-  font-weight: 800;
-  margin-bottom: 8px;
-}
-
-.champion-name {
-  margin: 0 0 4px 0;
-  font-family: 'Orbitron', sans-serif;
-  font-size: clamp(28px, 6vw, 58px);
-  text-transform: uppercase;
-  color: var(--green-soft);
-  line-height: 1.2;
-}
-
-.champion-sub {
-  color: var(--muted);
-  font-size: 15px;
-  margin-bottom: 24px;
-  clear: both;
-}
-
-@media (min-width: 768px) {
-  .champion-sub {
-    font-size: 18px;
-    margin-bottom: 28px;
-  }
-}
-
-.stat-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  margin-top: 20px;
-  clear: both;
-}
-
-.stat {
-  border: 1px solid rgba(255,255,255,0.1);
-  background: rgba(255,255,255,0.045);
-  border-radius: 18px;
-  padding: 14px;
-}
-
-.stat strong {
-  display: block;
-  font-family: 'Orbitron', sans-serif;
-  font-size: 24px;
-  color: var(--green);
-  line-height: 1.2;
-}
-
-.stat span {
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-size: 11px;
-  font-weight: 800;
-}
-
-@media (min-width: 768px) {
-  .stat strong {
-    font-size: 26px;
-  }
-}
-
-/* --- GENERAL SECTION STYLES --- */
-section {
-  padding: 50px 0;
-}
-
-@media (min-width: 768px) {
-  section {
-    padding: 74px 0;
-  }
-}
-
-.section-heading {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-bottom: 32px;
-}
-
-@media (min-width: 768px) {
-  .section-heading {
-    flex-direction: row;
-    align-items: flex-end;
-    justify-content: space-between;
-    margin-bottom: 42px;
-  }
-}
-
-h2 {
-  margin: 0;
-  font-family: 'Orbitron', sans-serif;
-  font-size: clamp(28px, 5vw, 48px);
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-  line-height: 1.2;
-}
-
-.section-heading p {
-  color: var(--muted);
-  font-size: 16px;
-  line-height: 1.5;
-  margin: 0;
-  max-width: 100%;
-}
-
-@media (min-width: 768px) {
-  .section-heading p {
-    max-width: 520px;
-    font-size: 18px;
-  }
-}
-
-/* --- CARDS & GRIDS (Mobile-First) --- */
-.cards, .teams-grid, .record-grid, .leaderboard-wrap {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
-}
-
-@media (min-width: 640px) {
-  .cards, .teams-grid, .record-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 980px) {
-  .cards, .teams-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  .record-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-/* Info Cards */
-.info-card {
-  min-height: auto;
-  border: 1px solid rgba(255,255,255,0.11);
-  background: var(--panel);
-  border-radius: 24px;
-  padding: 24px;
-  box-shadow: 0 18px 50px rgba(0,0,0,0.22);
-}
-
-.info-card h3 {
-  margin: 0 0 12px;
-  color: var(--green-soft);
-  font-size: 22px;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-.info-card p {
-  color: #c2d3c9;
-  font-size: 16px;
-  line-height: 1.5;
-  margin: 0;
-}
-
-/* Record Cards */
-.record-card {
-  border: 1px solid rgba(40,245,134,0.20);
-  background: rgba(255,255,255,0.04);
-  border-radius: 22px;
-  padding: 20px;
-  position: relative;
-  overflow: hidden;
-}
-
-.record-card .label {
-  color: var(--gold);
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  font-weight: 800;
-}
-
-.record-card strong {
-  display: block;
-  margin-top: 8px;
-  font-size: 20px;
-  color: var(--green-soft);
-  line-height: 1.2;
-}
-
-.record-card span {
-  display: block;
-  margin-top: 4px;
-  color: var(--muted);
-  font-size: 14px;
-}
-
-.record-card b {
-  display: block;
-  margin-top: 12px;
-  font-family: 'Orbitron', sans-serif;
-  font-size: 28px;
-  color: var(--green);
-  font-weight: 800;
-}
-
-/* Timeline */
-.timeline {
-  display: grid;
-  gap: 16px;
-}
-
-.timeline-item {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 12px;
-  border: 1px solid rgba(255,255,255,0.1);
-  background: rgba(255,255,255,0.04);
-  border-radius: 20px;
-  padding: 20px;
-}
-
-@media (min-width: 640px) {
-  .timeline-item {
-    grid-template-columns: 140px 1fr;
-    gap: 24px;
-  }
-}
-
-.timeline-date {
-  color: var(--green);
-  font-family: 'Orbitron', sans-serif;
-  font-size: 16px;
-  text-transform: uppercase;
-  font-weight: 700;
-}
-
-.timeline-item strong {
-  display: block;
-  font-size: 20px;
-  color: var(--text);
-  margin-bottom: 4px;
-}
-
-.timeline-item span {
-  color: var(--muted);
-  font-size: 16px;
-  line-height: 1.4;
-}
-
-/* Standings */
-.standing-row {
-  display: grid;
-  grid-template-columns: 70px 44px 1fr;
-  align-items: center;
-  gap: 12px;
-  padding: 14px;
-  border: 1px solid rgba(255,255,255,0.1);
-  background: rgba(255,255,255,0.04);
-  border-radius: 18px;
-}
-
-@media (min-width: 768px) {
-  .standing-row {
-    grid-template-columns: 92px 52px 1fr 170px;
-    padding: 12px 18px;
-  }
-}
-
-.standing-rank {
-  color: var(--gold);
-  font-family: 'Orbitron', sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-}
-
-.standing-logo {
-  width: 40px;
-  height: 40px;
-  object-fit: contain;
-}
-
-.standing-team {
-  font-size: 18px;
-  font-weight: 800;
-  line-height: 1.2;
-}
-
-.standing-label {
-  grid-column: 1 / -1;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 12px;
-  font-weight: 800;
-  margin-top: 4px;
-}
-
-@media (min-width: 768px) {
-  .standing-label {
-    grid-column: auto;
-    text-align: right;
-    margin-top: 0;
-    font-size: 13px;
-  }
-}
-
-/* Teams Grid */
-.teams-grid {
-  gap: 20px;
-}
-
-.team-tile {
-  min-height: auto;
-  border: 1px solid rgba(255,255,255,0.1);
-  background: rgba(255,255,255,0.04);
-  border-radius: 20px;
-  padding: 20px;
-  overflow: hidden;
-  position: relative;
-  transition: transform 0.2s ease;
-}
-
-.team-card-link:active .team-tile {
-  transform: scale(0.98);
-}
-
-@media (min-width: 768px) {
-  .team-card-link:hover .team-tile {
-    transform: translateY(-4px);
-  }
-}
-
-.team-top {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 20px;
-}
-
-.team-logo {
-  width: 60px;
-  height: 60px;
-  flex-shrink: 0;
-  object-fit: contain;
-}
-
-.team-logo-placeholder {
-  width: 60px;
-  height: 60px;
-  flex-shrink: 0;
-  border-radius: 16px;
-  display: grid;
-  place-items: center;
-  border: 1px solid rgba(40,245,134,0.3);
-  background: rgba(40,245,134,0.08);
-  color: var(--green);
-  font-family: 'Orbitron', sans-serif;
-  font-size: 14px;
-  font-weight: 800;
-}
-
-.team-tile strong {
-  display: block;
-  font-size: 18px;
-  line-height: 1.3;
-  margin-bottom: 4px;
-}
-
-.team-tile span {
-  color: var(--muted);
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-.team-mini-stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  margin-top: 0;
-}
-
-.mini-stat {
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 14px;
-  padding: 10px;
-  background: rgba(0,0,0,0.18);
-  text-align: center;
-}
-
-.mini-stat b {
-  display: block;
-  color: var(--green-soft);
-  font-family: 'Orbitron', sans-serif;
-  font-size: 18px;
-  margin-bottom: 4px;
-}
-
-.mini-stat small {
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  font-size: 10px;
-  font-weight: 800;
-}
-
-/* Leaderboards */
-.leaderboard-wrap {
-  gap: 24px;
-}
-
-@media (min-width: 768px) {
-  .leaderboard-wrap {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.leaderboard {
-  border: 1px solid rgba(255,255,255,0.1);
-  background: var(--panel);
-  border-radius: 24px;
-  padding: 20px;
-}
-
-.leaderboard h3 {
-  margin: 0 0 16px;
-  color: var(--green-soft);
-  text-transform: uppercase;
-  letter-spacing: 0.09em;
-  font-size: 20px;
-}
-
-.leader-row {
-  display: grid;
-  grid-template-columns: 40px 1fr auto;
-  gap: 12px;
-  align-items: center;
-  padding: 12px 0;
-  border-top: 1px solid rgba(255,255,255,0.08);
-}
-
-.leader-rank {
-  color: var(--gold);
-  font-family: 'Orbitron', sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-}
-
-.leader-name strong {
-  display: block;
-  font-size: 16px;
-  line-height: 1.3;
-}
-
-.leader-name span {
-  display: block;
-  color: var(--muted);
-  font-size: 12px;
-}
-
-.leader-value {
-  color: var(--green);
-  font-family: 'Orbitron', sans-serif;
-  font-size: 18px;
-  font-weight: 700;
-}
-
-/* Sponsors Grid */
-.sponsors-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-}
-
-@media (min-width: 640px) {
-  .sponsors-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (min-width: 980px) {
-  .sponsors-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-.sponsor-card {
-  min-height: 160px;
-  border: 1px solid rgba(255,255,255,.1);
-  background: rgba(255,255,255,.04);
-  border-radius: 20px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.2s ease, border-color 0.2s ease;
-  text-align: center;
-}
-
-.sponsor-card:active {
-  transform: scale(0.98);
-}
-
-@media (min-width: 768px) {
-  .sponsor-card:hover {
-    transform: translateY(-3px);
-    border-color: rgba(40,245,134,.35);
-  }
-}
-
-.sponsor-card img {
-  max-width: 80%;
-  max-height: 80px;
-  object-fit: contain;
-  margin-bottom: 12px;
-}
-
-/* CTA Section */
-.cta {
-  border: 1px solid rgba(40,245,134,0.28);
-  background: linear-gradient(135deg, rgba(40,245,134,0.13), rgba(255,255,255,0.035)),
-              rgba(4,12,8,0.9);
-  border-radius: 30px;
-  padding: 32px 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  align-items: center;
-  text-align: center;
-  box-shadow: var(--shadow);
-}
-
-@media (min-width: 768px) {
-  .cta {
-    flex-direction: row;
-    justify-content: space-between;
-    text-align: left;
-    padding: 40px;
-  }
-  .cta > div {
-    flex: 1;
-  }
-}
-
-.cta h2 {
-  color: var(--green-soft);
-  margin-bottom: 12px;
-}
-
-.cta p {
-  margin: 0;
-  color: #c9d9cf;
-  font-size: 18px;
-  line-height: 1.5;
-}
-
-@media (min-width: 768px) {
-  .cta p {
-    font-size: 20px;
-  }
-}
-
-/* Footer */
-footer {
-  padding: 40px 0 50px;
-  color: var(--muted);
-  border-top: 1px solid var(--line);
-  text-align: center;
-  font-size: 13px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-/* Loading & Error states */
-.loading, .error-box {
-  color: var(--muted);
-  border: 1px solid rgba(255,255,255,0.1);
-  background: rgba(255,255,255,0.04);
-  border-radius: 18px;
-  padding: 24px;
-  font-size: 16px;
-  text-align: center;
-}
-
-.error-box {
-  color: #ffd4dc;
-  border-color: rgba(255,79,109,0.35);
-} 
+    min-height: 380px;
+    }
+
+    .season-card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(40, 245, 134, 0.6);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), var(--shadow);
+    }
+
+    .season-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 16px;
+        margin-bottom: 20px;
+    }
+
+    .season-label {
+        color: var(--gold);
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        font-size: 11px;
+        font-weight: 800;
+        margin-bottom: 8px;
+    }
+
+    .season-card h3 {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 32px;
+        margin: 0;
+        color: var(--green-soft);
+    }
+
+    .season-logo {
+        width: 64px;
+        height: 64px;
+        object-fit: contain;
+        filter: drop-shadow(0 0 12px rgba(40, 245, 134, 0.3));
+    }
+
+    .season-card p {
+        color: var(--muted);
+        line-height: 1.5;
+        margin: 16px 0;
+        flex-grow: 1;
+    }
+
+    .season-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 16px 0;
+    }
+
+    .pill {
+        background: rgba(40, 245, 134, 0.12);
+        border: 1px solid rgba(40, 245, 134, 0.25);
+        padding: 4px 12px;
+        border-radius: 999px;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--green-soft);
+    }
+
+    /* Teaser Cards (Records Preview) */
+    .teaser-card {
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(0, 0, 0, 0.2));
+        border-radius: 24px;
+        padding: 24px;
+        transition: all 0.2s ease;
+    }
+
+    .teaser-card:hover {
+        border-color: rgba(40, 245, 134, 0.4);
+        transform: translateY(-3px);
+    }
+
+    .teaser-card .label {
+        color: var(--gold);
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        font-size: 11px;
+        font-weight: 800;
+        margin-bottom: 12px;
+    }
+
+    .teaser-card strong {
+        display: block;
+        font-family: 'Orbitron', sans-serif;
+        font-size: 24px;
+        color: var(--green-soft);
+        margin-bottom: 12px;
+    }
+
+    .teaser-card p {
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.5;
+        margin: 0 0 12px 0;
+    }
+
+    .teaser-card b {
+        display: inline-block;
+        background: rgba(40, 245, 134, 0.15);
+        padding: 4px 12px;
+        border-radius: 999px;
+        font-size: 12px;
+        color: var(--green);
+        margin-top: 8px;
+    }
+
+    .sponsors-grid,
+    .supporters-grid {
+      display: grid;
+      gap: 20px;
+    }
+
+    .sponsors-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .supporters-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: 640px) {
+      .sponsors-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .supporters-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .sponsor-card {
+      min-height: 190px;
+      border: 1px solid rgba(40,245,134,.26);
+      background: linear-gradient(180deg, rgba(12,36,24,.82), rgba(3,8,6,.92));
+      border-radius: 24px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: transform .2s ease, border-color .2s ease;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .supporter-card {
+      min-height: 120px;
+      border: 1px solid rgba(255,255,255,.09);
+      background: rgba(255,255,255,.035);
+      border-radius: 18px;
+      padding: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .sponsor-card:hover,
+    .supporter-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(40,245,134,.38);
+    }
+
+    .sponsor-card img {
+      max-width: 86%;
+      max-height: 92px;
+      object-fit: contain;
+      margin-bottom: 14px;
+      filter: drop-shadow(0 0 18px rgba(40,245,134,.18));
+    }
+
+    .sponsor-card strong {
+      color: var(--green-soft);
+      font-size: 20px;
+    }
+
+    .supporter-card strong {
+      color: var(--text);
+      font-size: 17px;
+    }
+
+    .sponsor-card span,
+    .supporter-card span {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      font-size: 11px;
+    }
+    .cta {
+      border: 1px solid rgba(40,245,134,.28);
+      background: linear-gradient(135deg, rgba(40,245,134,.13), rgba(255,255,255,.035)), rgba(4,12,8,.9);
+      border-radius: var(--radius-lg);
+      padding: 32px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      align-items: center;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    @media (min-width: 768px) { .cta { flex-direction: row; justify-content: space-between; text-align: left; padding: 40px; } .cta > div { flex: 1; } }
+    .cta h2 { color: var(--green-soft); margin-bottom: 12px; }
+    .cta p { margin: 0; color: #c9d9cf; font-size: 19px; line-height: 1.5; }
+
+    footer {
+      position: relative;
+      z-index: 1;
+      padding: 40px 0 50px;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+      text-align: center;
+      font-size: 13px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .loading, .error-box {
+      color: var(--muted);
+      border: 1px solid rgba(255,255,255,.1);
+      background: rgba(255,255,255,.04);
+      border-radius: 18px;
+      padding: 24px;
+      font-size: 16px;
+      text-align: center;
+    }
+
+    .error-box { color: #ffd4dc; border-color: rgba(255,79,109,.35); }
   </style>
 </head>
 <body>
@@ -954,11 +739,9 @@ footer {
       </a>
 
       <nav aria-label="Main navigation">
-        <a href="#history">History</a>
         <a href="#seasons">Seasons</a>
-        <a href="#season-two">Season 2</a>
         <a href="#records">Records</a>
-        <a href="#teams">Teams</a>
+        <a href="#partners">Partners</a>
         <a href="organization.html">Organization</a>
       </nav>
     </div>
@@ -967,181 +750,85 @@ footer {
   <main id="top">
     <div class="site-shell hero">
       <div>
-        <div class="eyebrow">A PLATFORM FOR LOCAL MLBB TEAMS THAT FEATURE MARANAO PLAYER/S</div>
-        <h1>Brackets create<br /><span>real rivalries</span></h1>
+        <div class="eyebrow">Community MLBB Tournament Archive</div>
+        <h1>Local teams.<br /><span>Permanent legacy.</span></h1>
         <p class="hero-copy">
-          UMBAC Tour is a community-driven MLBB tournament series in Marawi City, built to give players back home a broadcasted and high-stakes competitive experience. If your local team features a Maranao player, this is where you belong.
+          UMBAC Tour preserves the matches, rivalries, team names, player moments, and broadcast history of local MLBB competition — built for teams featuring Maranao player/s and the community that showed up.
         </p>
         <div class="hero-actions">
-          <a class="button" href="#season-two">View Season 2 Archive</a>
+          <a class="button" href="#seasons">Explore Seasons</a>
           <a class="button secondary" href="#records">View Records</a>
         </div>
       </div>
 
-      <aside class="champion-card" aria-label="Season 2 Champion highlight">
-        <img class="champion-logo" id="championLogo" alt="Season 2 Champion Logo" />
-        <div class="card-kicker">Season 2 Champions</div>
+      <aside class="champion-card" aria-label="Current champion highlight">
+        <img class="champion-logo" id="championLogo" src="assets/teams/level-up/logo.png" alt="Level Up Logo" />
+        <div class="card-kicker">Latest Champions</div>
         <div class="champion-name" id="championName">Level Up</div>
-        <div class="champion-sub">Lower bracket champions. Grand Finals reset. Title secured.</div>
+        <div class="champion-sub">Season 2 champions. Lower bracket run. Grand Finals reset. Title secured.</div>
 
         <div class="stat-grid">
-          <div class="stat">
-            <strong>₱20K</strong>
-            <span>Prize Pool</span>
-          </div>
-          <div class="stat">
-            <strong>₱14K</strong>
-            <span>Champion Prize</span>
-          </div>
-          <div class="stat">
-            <strong id="matchCount">—</strong>
-            <span>Matches Archived</span>
-          </div>
-          <div class="stat">
-            <strong id="teamCount">—</strong>
-            <span>Teams Archived</span>
-          </div>
+          <div class="stat"><strong>₱20K</strong><span>Season 2 Prize Pool</span></div>
+          <div class="stat"><strong>₱14K</strong><span>Champion Prize</span></div>
+          <div class="stat"><strong id="matchCount">—</strong><span>Matches Archived</span></div>
+          <div class="stat"><strong id="teamCount">—</strong><span>Teams Archived</span></div>
         </div>
       </aside>
     </div>
 
-    <section id="history">
-      <div class="site-shell">
-        <div class="section-heading">
-          <h2>Why UMBAC Tour Exists</h2>
-          <p>Not just another bracket. UMBAC Tour preserves the matches, rivalries, team names, player moments, and stories that local competition usually loses after the stream ends.</p>
-        </div>
-
-        <div class="cards">
-          <article class="info-card highlight">
-            <h3>Broadcast First</h3>
-            <p>Matches are presented with custom graphics, live casting featuring Killershin, standings, overlays, and storylines built around the teams.</p>
-          </article>
-          <article class="info-card">
-            <h3>Team Legacy</h3>
-            <p>Teams are remembered beyond a single match night through archived results, placements, posters, and championship history.</p>
-          </article>
-          <article class="info-card">
-            <h3>Community Stage</h3>
-            <p>The local esports community is provided with a platform to showcase their skills and to write their own legends.</p>
-          </article>
-        </div>
+    <div class="logo-marquee" aria-label="Season 2 team logo marquee">
+      <div class="logo-track" id="logoTrack">
+        <div class="logo-item"><span class="logo-placeholder">UT</span></div>
+        <div class="logo-item"><span class="logo-placeholder">MLBB</span></div>
+        <div class="logo-item"><span class="logo-placeholder">S2</span></div>
       </div>
-    </section>
-
-    <section id="season-two">
-      <div class="site-shell">
-        <div class="section-heading">
-          <h2>Season 2 Archive</h2>
-          <p>The season saw UMBAC Tour grow bigger than the previous iteration in 2024: 3 returning teams, a couple dozen returning players, teams featuring Maranao player/s from all over the country, regional viewership, and a championship run worthy of the record book.</p>
-        </div>
-
-        <div class="timeline">
-          <div class="timeline-item">
-            <div class="timeline-date">2026</div>
-            <div>
-              <strong>UMBAC Tour Season 2</strong>
-              <span>Community MLBB tournament with a ₱20,000 prize pool and a broadcast presentation worthy of viewers' time.</span>
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-date">Finals</div>
-            <div>
-              <strong>Level Up defeats Raging Moon</strong>
-              <span>Lower bracket run, twice-to-beat advantage overcome, Grand Finals reset completed.</span>
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-date">Legacy</div>
-            <div>
-              <strong>Season 2 records preserved</strong>
-              <span>Match data, team placements, VOD backups, player stats, and team histories are now part of the UMBAC Tour archive.</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    </div>
 
     <section id="seasons">
       <div class="site-shell">
         <div class="section-heading">
-          <h2>Tournament History</h2>
-          <p>
-            Every season contributes to the growing history of UMBAC Tour. Browse preserved archives, champions, and team legacies.
-          </p>
+          <h2>Tournament Seasons</h2>
+          <p>The homepage now stays clean. Each season page carries its own standings, match histories, leaderboards, and team receipts.</p>
         </div>
 
-        <div class="teams-grid">
-
-          <a class="team-card-link" href="seasons/season-1.html">
-            <article class="team-tile">
-              <div class="team-top">
-                <img
-                  class="team-logo"
-                  src="assets/posters/season-1-champions.png"
-                  alt="Season 1"
-                  style="object-fit:cover;border-radius:12px;"
-                />
+        <div class="season-grid">
+          <a class="season-card" href="seasons/season-1.html" aria-label="Open Season 1 archive">
+            <div>
+              <div class="season-top">
                 <div>
-                  <strong>Season 1</strong>
-                  <span>2024 · Legacy Archive</span>
+                  <div class="season-label">Legacy Archive</div>
+                  <h3>Season 1</h3>
                 </div>
+                <img class="season-logo" src="assets/posters/season-1-champions.png" alt="Season 1 archive" />
               </div>
-
-              <div class="team-mini-stats">
-                <div class="mini-stat">
-                  <b>UP</b>
-                  <small>Champion</small>
-                </div>
-
-                <div class="mini-stat">
-                  <b>HC</b>
-                  <small>Runner-Up</small>
-                </div>
-
-                <div class="mini-stat">
-                  <b>Partial</b>
-                  <small>Archive</small>
-                </div>
+              <p>The first preserved chapter of UMBAC Tour history, with champion records and early community stories.</p>
+              <div class="season-meta">
+                <span class="pill">2024</span>
+                <span class="pill">Partial Archive</span>
+                <span class="pill">Legacy Teams</span>
               </div>
-            </article>
+            </div>
+            <span class="button secondary">Open Season 1</span>
           </a>
 
-          <a class="team-card-link" href="#season-two">
-            <article class="team-tile">
-              <div class="team-top">
-                <img
-                  class="team-logo"
-                  src="assets/teams/level-up/logo.png"
-                  alt="Season 2"
-                />
+          <a class="season-card" href="seasons/season-2.html" aria-label="Open Season 2 archive">
+            <div>
+              <div class="season-top">
                 <div>
-                  <strong>Season 2</strong>
-                  <span>2026 · Complete Archive</span>
+                  <div class="season-label">Complete Archive</div>
+                  <h3>Season 2</h3>
                 </div>
+                <img class="season-logo" src="assets/teams/level-up/logo.png" alt="Season 2 champion logo" />
               </div>
-
-              <div class="team-mini-stats">
-                <div class="mini-stat">
-                  <b>Level Up</b>
-                  <small>Champion</small>
-                </div>
-
-                <div class="mini-stat">
-                  <b>RM</b>
-                  <small>Runner-Up</small>
-                </div>
-
-                <div class="mini-stat">
-                  <b>16</b>
-                  <small>Teams</small>
-                </div>
+              <p>The bigger Season 2 archive: final standings, team pages, match history, player stats, records, partners, and champion story.</p>
+              <div class="season-meta">
+                <span class="pill">2026</span>
+                <span class="pill">16 Teams</span>
+                <span class="pill">₱20K Prize Pool</span>
               </div>
-            </article>
+            </div>
+            <span class="button">Open Season 2</span>
           </a>
-
         </div>
       </div>
     </section>
@@ -1149,94 +836,54 @@ footer {
     <section id="records">
       <div class="site-shell">
         <div class="section-heading">
-          <h2>Season 2 Records</h2>
-          <p>Generated from the official match JSON archive. No more “trust me bro” standings — history now has receipts.</p>
+          <h2>Records Preview</h2>
+          <p>A quick front-page taste of the archive. Full leaderboards and match-by-match history belong inside the season pages.</p>
         </div>
 
-        <div class="record-grid" id="recordGrid">
-          <div class="loading">Loading records...</div>
-        </div>
-      </div>
-    </section>
-
-    <section id="standings">
-      <div class="site-shell">
-        <div class="section-heading">
-          <h2>Final Standings</h2>
-          <p>Official Season 2 placement archive, including shared placement groups.</p>
-        </div>
-
-        <div class="standings" id="standingsList">
-          <div class="loading">Loading standings...</div>
-        </div>
-      </div>
-    </section>
-
-    <section id="leaderboards">
-      <div class="site-shell">
-      <div class="section-heading">
-        <div>
-          <h2>Leaderboards</h2>
-          <p>Top performers by KDA, kills, assists, and MVP awards across Season 2.</p>
-        </div>
-
-        <div class="section-actions">
-          <a class="button secondary" href="leaderboards.html">View Complete Leaderboards</a>
-        </div>
-      </div>
-
-        <div class="leaderboard-wrap">
-          <div class="leaderboard">
-            <h3>Top KDA</h3>
-            <div id="kdaLeaderboard"><div class="loading">Loading...</div></div>
-          </div>
-          <div class="leaderboard">
-            <h3>Most Kills</h3>
-            <div id="killsLeaderboard"><div class="loading">Loading...</div></div>
-          </div>
-          <div class="leaderboard">
-            <h3>Most Assists</h3>
-            <div id="assistsLeaderboard"><div class="loading">Loading...</div></div>
-          </div>
-          <div class="leaderboard">
-            <h3>MVP Leaders</h3>
-            <div id="mvpLeaderboard"><div class="loading">Loading...</div></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="teams">
-      <div class="site-shell">
-        <div class="section-heading">
-          <h2>Teams</h2>
-          <p>Season 2 team archive with records, KDA, and scoring totals generated from match data.</p>
-        </div>
-
-        <div class="teams-grid" id="teamsGrid">
-          <div class="loading">Loading teams...</div>
+        <div class="teaser-grid" id="recordsPreview">
+          <article class="teaser-card">
+            <div class="label">Champion</div>
+            <strong>Level Up</strong>
+            <p>Season 2 title secured after a lower bracket run and Grand Finals reset.</p>
+            <b>S2</b>
+          </article>
+          <article class="teaser-card">
+            <div class="label">Runner-Up</div>
+            <strong>Raging Moon</strong>
+            <p>Upper bracket finalist with a twice-to-beat advantage in the championship series.</p>
+            <b>2nd</b>
+          </article>
+          <article class="teaser-card">
+            <div class="label">Archive</div>
+            <strong id="archiveSummaryTitle">Loading records...</strong>
+            <p id="archiveSummaryText">Reading available match and team data.</p>
+            <b id="archiveSummaryValue">—</b>
+          </article>
         </div>
       </div>
     </section>
 
     <section id="partners">
       <div class="site-shell">
-
         <div class="section-heading">
-          <h2>Season 2 Partners</h2>
-          <p>
-            UMBAC Tour Season 2 was made possible through the support of local businesses,
-            community leaders, organizations, and supporters who believed in giving local
-            MLBB players a bigger stage.
-          </p>
+          <h2>Partners & Supporters</h2>
+          <p>Local businesses, leaders, organizations, and supporters helped give the players a bigger stage.</p>
         </div>
 
-        <div class="sponsors-grid" id="sponsorsGrid">
-
-          <div class="loading">
-            Sponsor logos coming soon...
+        <div class="partners-layout">
+          <div>
+            <h3 class="partner-group-title">Sponsors</h3>
+            <div class="sponsors-grid" id="sponsorsGrid">
+              <div class="loading">Loading sponsor logos...</div>
+            </div>
           </div>
 
+          <div>
+            <h3 class="partner-group-title">Supporters</h3>
+            <div class="supporters-grid" id="supportersGrid">
+              <div class="loading">Loading supporters...</div>
+            </div>
+          </div>
         </div>
 
       </div>
@@ -1247,9 +894,7 @@ footer {
         <div class="cta">
           <div>
             <h2>UMBAC TOUR WILL BE BACK</h2>
-            <p>
-              UMBAC Tour will return with preserved history, stronger team identities, and a growing competitive scene built by the community that showed up.
-            </p>
+            <p>Season pages preserve the past. The homepage keeps the brand ready for whatever comes next.</p>
           </div>
           <a class="button" href="#top">Back to Top</a>
         </div>
@@ -1258,18 +903,13 @@ footer {
   </main>
 
   <footer>
-    <div class="site-shell">
-      UMBAC Tour · Community Competition Archive · Built for the players back home
-    </div>
+    <div class="site-shell">UMBAC Tour · Community Competition Archive · Built for the players back home</div>
   </footer>
 
   <script>
     const DATA_PATHS = {
       teams: 'data/teams.json',
       matches: 'data/season-2-matches.json',
-      standings: 'data/standings-season-2.json',
-      leaderboards: 'data/leaderboards-season-2.json',
-      hallOfFame: 'data/hall-of-fame-season-2.json',
       sponsors: 'data/season-2-sponsors.json'
     };
 
@@ -1292,23 +932,13 @@ footer {
       'OSAKA Esports': 'osaka-esports'
     };
 
+    const FALLBACK_TEAMS = Object.keys(TEAM_SLUGS);
+
     const FALLBACK_INITIALS = {
-      'Level Up': 'LU',
-      'Raging Moon': 'RM',
-      'REBO x Endgame': 'RE',
-      'Project Obsidian': 'PO',
-      'Cipher Esports': 'CE',
-      'HORIZONE CITY': 'HC',
-      'Golden Dawn': 'GD',
-      'Seiha Era': 'SE',
-      'Aquatic Esports': 'AE',
-      'Dark Divine': 'DD',
-      'Dark Reunion': 'DR',
-      'Shadow Reaper': 'SR',
-      'BIGBANG Esports': 'BE',
-      'Clutch Kings': 'CK',
-      'Nexus Academy': 'NA',
-      'OSAKA Esports': 'OE'
+      'Level Up': 'LU', 'Raging Moon': 'RM', 'REBO x Endgame': 'RE', 'Project Obsidian': 'PO',
+      'Cipher Esports': 'CE', 'HORIZONE CITY': 'HC', 'Golden Dawn': 'GD', 'Seiha Era': 'SE',
+      'Aquatic Esports': 'AE', 'Dark Divine': 'DD', 'Dark Reunion': 'DR', 'Shadow Reaper': 'SR',
+      'BIGBANG Esports': 'BE', 'Clutch Kings': 'CK', 'Nexus Academy': 'NA', 'OSAKA Esports': 'OE'
     };
 
     function slugifyTeam(teamName) {
@@ -1319,19 +949,11 @@ footer {
         .replace(/^-+|-+$/g, '');
     }
 
-    function teamLogoPath(teamName) {
-      return `assets/teams/${slugifyTeam(teamName)}/logo.png`;
-    }
+    function teamLogoPath(teamName) { return `assets/teams/${slugifyTeam(teamName)}/logo.png`; }
 
     function initials(teamName) {
       if (FALLBACK_INITIALS[teamName]) return FALLBACK_INITIALS[teamName];
-      return String(teamName || 'UT')
-        .split(/\s+/)
-        .filter(Boolean)
-        .slice(0, 2)
-        .map(word => word[0])
-        .join('')
-        .toUpperCase();
+      return String(teamName || 'UT').split(/\s+/).filter(Boolean).slice(0, 2).map(word => word[0]).join('').toUpperCase();
     }
 
     function escapeHtml(value) {
@@ -1343,248 +965,136 @@ footer {
         .replaceAll("'", '&#039;');
     }
 
+    function normalizeList(payload, key) {
+      if (Array.isArray(payload)) return payload;
+      if (payload && Array.isArray(payload[key])) return payload[key];
+      if (payload && Array.isArray(payload.data)) return payload.data;
+      return [];
+    }
+
+    function teamNameFromRecord(record) {
+      return record?.name || record?.team || record?.teamName || record?.team_name || record?.title || '';
+    }
+
     async function loadJson(path) {
-      const response = await fetch(path);
-      if (!response.ok) {
-        throw new Error(`Could not load ${path}`);
-      }
+      const response = await fetch(path, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`Unable to load ${path}`);
       return response.json();
     }
 
-    function imageWithFallback(teamName, className = 'team-logo') {
-      const safeTeam = escapeHtml(teamName);
-      const safeInitials = escapeHtml(initials(teamName));
-      return `
-        <img
-          class="${className}"
-          src="${teamLogoPath(teamName)}"
-          alt="${safeTeam} logo"
-          onerror="this.outerHTML='<div class=&quot;team-logo-placeholder&quot;>${safeInitials}</div>'"
-        />
-      `;
+    function imageWithFallback(src, alt, className, fallbackText) {
+      return `<img class="${className}" src="${src}" alt="${escapeHtml(alt)}" onerror="this.replaceWith(Object.assign(document.createElement('span'), { className: 'logo-placeholder', textContent: '${escapeHtml(fallbackText)}' }))" />`;
     }
 
-    function renderHero({ hallOfFame, matches, teams }) {
-      const champion = hallOfFame?.champion || 'Level Up';
-      document.getElementById('championName').textContent = champion;
-      document.getElementById('matchCount').textContent = matches.length;
-      document.getElementById('teamCount').textContent = teams.length;
+    function renderLogoMarquee(teamsPayload) {
+      const track = document.getElementById('logoTrack');
+      const teams = normalizeList(teamsPayload, 'teams').map(teamNameFromRecord).filter(Boolean);
+      const teamNames = teams.length ? teams : FALLBACK_TEAMS;
+      const doubled = [...teamNames, ...teamNames];
 
-      const championLogo = document.getElementById('championLogo');
-      championLogo.src = teamLogoPath(champion);
-      championLogo.onerror = () => championLogo.style.display = 'none';
-
-      const brandMark = document.getElementById('brandMark');
-      const logo = document.createElement('img');
-      logo.src = 'assets/brand/umbac-logo.png';
-      logo.alt = 'UMBAC Tour logo';
-      logo.onerror = () => {
-        brandMark.textContent = 'UT';
-      };
-      logo.onload = () => {
-        brandMark.textContent = '';
-        brandMark.appendChild(logo);
-      };
-    }
-
-    function renderRecords(hallOfFame) {
-      const records = [
-        {
-          label: 'Best KDA',
-          player: hallOfFame?.topKda?.name,
-          team: hallOfFame?.topKda?.team,
-          value: hallOfFame?.topKda?.kda
-        },
-        {
-          label: 'Most Kills',
-          player: hallOfFame?.topKills?.name,
-          team: hallOfFame?.topKills?.team,
-          value: hallOfFame?.topKills?.kills
-        },
-        {
-          label: 'Most Assists',
-          player: hallOfFame?.topAssists?.name,
-          team: hallOfFame?.topAssists?.team,
-          value: hallOfFame?.topAssists?.assists
-        },
-        {
-          label: 'Most MVPs',
-          player: hallOfFame?.mvpLeader?.name,
-          team: hallOfFame?.mvpLeader?.team,
-          value: hallOfFame?.mvpLeader?.mvpCount
-        }
-      ];
-
-      document.getElementById('recordGrid').innerHTML = records.map(record => `
-        <article class="record-card">
-          <div class="label">${escapeHtml(record.label)}</div>
-          <strong>${escapeHtml(record.player || '—')}</strong>
-          <span>${escapeHtml(record.team || '—')}</span>
-          <b>${escapeHtml(record.value ?? '—')}</b>
-        </article>
-      `).join('');
-    }
-
-    function renderStandings(standings) {
-      document.getElementById('standingsList').innerHTML = standings.map(row => `
-        <div class="standing-row">
-          <div class="standing-rank">${escapeHtml(row.placement)}</div>
-          ${imageWithFallback(row.team, 'standing-logo')}
-          <div class="standing-team">${escapeHtml(row.team)}</div>
-          <div class="standing-label">${escapeHtml(row.label)}</div>
+      track.innerHTML = doubled.map(teamName => `
+        <div class="logo-item" title="${escapeHtml(teamName)}">
+          ${imageWithFallback(teamLogoPath(teamName), `${teamName} logo`, 'team-logo-marquee', initials(teamName))}
         </div>
       `).join('');
     }
 
-    function renderTeams(teams, standings) {
-      const placementByTeam = new Map(standings.map(row => [row.team, row.placement]));
-      const labelByTeam = new Map(standings.map(row => [row.team, row.label]));
+    function updateHeroCounts(teamsPayload, matchesPayload) {
+      const teams = normalizeList(teamsPayload, 'teams');
+      const matches = normalizeList(matchesPayload, 'matches');
+      document.getElementById('teamCount').textContent = teams.length || FALLBACK_TEAMS.length;
+      document.getElementById('matchCount').textContent = matches.length || '—';
 
-      const officialOrder = [...teams].sort((a, b) => {
-        const pa = standings.find(row => row.team === a.name)?.rank ?? 999;
-        const pb = standings.find(row => row.team === b.name)?.rank ?? 999;
-        if (pa !== pb) return pa - pb;
-        return a.name.localeCompare(b.name);
-      });
+      const archiveTitle = document.getElementById('archiveSummaryTitle');
+      const archiveText = document.getElementById('archiveSummaryText');
+      const archiveValue = document.getElementById('archiveSummaryValue');
+      const teamCount = teams.length || FALLBACK_TEAMS.length;
+      const matchCount = matches.length || 0;
 
-      document.getElementById('teamsGrid').innerHTML = officialOrder.map(team => {
-        const slug = slugifyTeam(team.name);
-        const href = `teams/${slug}.html`;
+      archiveTitle.textContent = `${teamCount} Teams Preserved`;
+      archiveText.textContent = matchCount ? `${matchCount} archived matches are available from the Season 2 data files.` : 'Season 2 team identities are preserved and ready for deeper archive pages.';
+      archiveValue.textContent = matchCount || teamCount;
+    }
 
-        return `
-          <a class="team-card-link" href="${href}">
-            <article class="team-tile">
-              <div class="team-top">
-                ${imageWithFallback(team.name)}
+    function sponsorLogoPath(logo) {
+      if (!logo) return '';
+      if (logo.includes('/') || logo.startsWith('http')) return logo;
+      return `assets/sponsors/${logo}`;
+    }
+
+    function isSponsor(item) {
+      const type = String(item.type || item.category || '').toLowerCase();
+      return type.includes('sponsor') || type.includes('partner');
+    }
+
+    function renderSponsors(payload) {
+      const sponsorsGrid = document.getElementById('sponsorsGrid');
+      const supportersGrid = document.getElementById('supportersGrid');
+      const partners = normalizeList(payload, 'sponsors');
+
+      const sponsors = partners.filter(isSponsor);
+      const supporters = partners.filter(item => !isSponsor(item));
+
+      sponsorsGrid.innerHTML = sponsors.length
+        ? sponsors.map(item => {
+            const name = item.name || item.title || item.sponsor || 'Sponsor';
+            const type = item.type || item.category || 'Sponsor';
+            const logo = sponsorLogoPath(item.logo || item.logoPath || item.image || '');
+
+            return `
+              <article class="sponsor-card">
+                ${logo ? `<img src="${escapeHtml(logo)}" alt="${escapeHtml(name)} logo" onerror="this.remove()" />` : ''}
+                <strong>${escapeHtml(name)}</strong>
+                <span>${escapeHtml(type)}</span>
+              </article>
+            `;
+          }).join('')
+        : '<div class="loading">Sponsor logos coming soon.</div>';
+
+      supportersGrid.innerHTML = supporters.length
+        ? supporters.map(item => {
+            const name = item.name || item.title || item.sponsor || 'Supporter';
+            const type = item.type || item.category || 'Supporter';
+
+            return `
+              <article class="supporter-card">
                 <div>
-                  <strong>${escapeHtml(team.name)}</strong>
-                  <span>${escapeHtml(labelByTeam.get(team.name) || placementByTeam.get(team.name) || 'Season 2 Team')}</span>
+                  <strong>${escapeHtml(name)}</strong>
+                  <span>${escapeHtml(type)}</span>
                 </div>
-              </div>
-
-              <div class="team-mini-stats">
-                <div class="mini-stat">
-                  <b>${escapeHtml(`${team.wins}-${team.losses}`)}</b>
-                  <small>Record</small>
-                </div>
-                <div class="mini-stat">
-                  <b>${escapeHtml(team.kda)}</b>
-                  <small>KDA</small>
-                </div>
-                <div class="mini-stat">
-                  <b>${escapeHtml(team.kills)}</b>
-                  <small>Kills</small>
-                </div>
-              </div>
-            </article>
-          </a>
-        `;
-      }).join('');
+              </article>
+            `;
+          }).join('')
+        : '<div class="loading">Supporters coming soon.</div>';
     }
 
-    function renderLeaderboard(containerId, rows, valueKey, suffix = '') {
-      const container = document.getElementById(containerId);
-
-      if (!rows || !rows.length) {
-        container.innerHTML = '<div class="loading">No data available.</div>';
-        return;
-      }
-
-      container.innerHTML = rows.slice(0, 5).map((row, index) => `
-        <div class="leader-row">
-          <div class="leader-rank">#${index + 1}</div>
-          <div class="leader-name">
-            <strong>${escapeHtml(row.name)}</strong>
-            <span>${escapeHtml(row.team)}</span>
-          </div>
-          <div class="leader-value">${escapeHtml(row[valueKey])}${suffix}</div>
-        </div>
-      `).join('');
-    }
-
-    function renderLeaderboards(leaderboards) {
-      renderLeaderboard('kdaLeaderboard', leaderboards.kda, 'kda');
-      renderLeaderboard('killsLeaderboard', leaderboards.kills, 'kills');
-      renderLeaderboard('assistsLeaderboard', leaderboards.assists, 'assists');
-      renderLeaderboard('mvpLeaderboard', leaderboards.mvp, 'mvpCount');
-    }
-
-    function renderSponsors(sponsors) {
-
-      const container = document.getElementById('sponsorsGrid');
-
-      container.innerHTML = sponsors.map(sponsor => `
-
-        <div class="sponsor-card">
-
-          <img
-            src="assets/sponsors/${sponsor.logo}"
-            alt="${escapeHtml(sponsor.name)}"
-            loading="lazy"
-          />
-
-          <div style="
-            margin-top:12px;
-            text-align:center;
-          ">
-            <strong>${escapeHtml(sponsor.name)}</strong>
-            <br>
-            <span style="
-              color:var(--muted);
-              text-transform:uppercase;
-              font-size:13px;
-              letter-spacing:.08em;
-            ">
-              ${escapeHtml(sponsor.type)}
-            </span>
-          </div>
-
-        </div>
-
-      `).join('');
-
-    }
-
-    function renderError(error) {
-      console.error(error);
-      const message = `
-        <div class="error-box">
-          Could not load website data. Run this through a local server, not by double-clicking the file.
-          <br /><br />
-          PowerShell:
-          <br />
-          <code>cd "D:\\UMBAC Tour Website"</code><br />
-          <code>python -m http.server 8080</code>
-        </div>
-      `;
-
-      ['recordGrid', 'standingsList', 'teamsGrid', 'kdaLeaderboard', 'killsLeaderboard', 'assistsLeaderboard', 'mvpLeaderboard']
-        .forEach(id => {
-          const el = document.getElementById(id);
-          if (el) el.innerHTML = message;
-        });
+    function setBrandLogo() {
+      const brandMark = document.getElementById('brandMark');
+      const img = new Image();
+      img.src = 'assets/logo.png';
+      img.alt = 'UMBAC Tour Logo';
+      img.onload = () => { brandMark.textContent = ''; brandMark.appendChild(img); };
     }
 
     async function init() {
-      try {
-        const [teams, matches, standings, leaderboards, hallOfFame, sponsors] = await Promise.all([
-          loadJson(DATA_PATHS.teams),
-          loadJson(DATA_PATHS.matches),
-          loadJson(DATA_PATHS.standings),
-          loadJson(DATA_PATHS.leaderboards),
-          loadJson(DATA_PATHS.hallOfFame),
-          loadJson(DATA_PATHS.sponsors)
-        ]);
+      setBrandLogo();
 
-        renderHero({ hallOfFame, matches, teams });
-        renderRecords(hallOfFame);
-        renderStandings(standings);
-        renderLeaderboards(leaderboards);
-        renderTeams(teams, standings);
-        renderSponsors(sponsors);
-      } catch (error) {
-        renderError(error);
-      }
+      let teamsPayload = null;
+      let matchesPayload = null;
+      let sponsorsPayload = null;
+
+      try { teamsPayload = await loadJson(DATA_PATHS.teams); }
+      catch (error) { teamsPayload = FALLBACK_TEAMS.map(name => ({ name })); }
+
+      try { matchesPayload = await loadJson(DATA_PATHS.matches); }
+      catch (error) { matchesPayload = []; }
+
+      try { sponsorsPayload = await loadJson(DATA_PATHS.sponsors); }
+      catch (error) { sponsorsPayload = []; }
+
+      renderLogoMarquee(teamsPayload);
+      updateHeroCounts(teamsPayload, matchesPayload);
+      renderSponsors(sponsorsPayload);
     }
 
     init();
